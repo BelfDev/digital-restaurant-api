@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const { Sequelize } = require('sequelize');
 
 const dummyRouter = require('./routes/dummyRouter');
 

@@ -1,5 +1,6 @@
 import {apiHelper} from './api-helper'
 import {throws} from 'smid'
+import {describe, expect} from "@jest/globals";
 
 describe('nonexisting routes', () => {
     it('returns 404 with the path and method info', async () => {

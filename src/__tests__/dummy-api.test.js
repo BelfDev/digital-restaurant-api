@@ -1,5 +1,6 @@
 import {apiHelper} from './api-helper'
 import {throws} from 'smid'
+import {describe, expect, it} from "@jest/globals";
 
 // TIP: if you have more than a handful of tests here
 // in can be beneficial to split them into multiple files for

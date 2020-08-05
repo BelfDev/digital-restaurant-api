@@ -3,13 +3,13 @@
  * For demo purposes, gets the logger injected.
  */
 export default function createTodoStore(logger) {
-    let __todos = []
+    let __todos = ['Todo 1', 'Todo 2']
     let __ids = 1
 
     return {
         async find() {
             logger.debug('Finding todos')
-            return [...__todos]
+            return {values: [...__todos]}
         },
 
         async get(id) {

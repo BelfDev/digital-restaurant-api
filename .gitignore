@@ -111,7 +111,7 @@ dist
 # yarn v2
 .yarn/*
 .yarn/cache
-.yarn/releases
+!.yarn/releases
 .yarn/plugins
 .yarn/sdks
 .yarn/versions

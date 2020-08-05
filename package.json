@@ -20,7 +20,6 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
-    "@babel/runtime": "^7.11.1",
     "@koa/cors": "^3.1.0",
     "awilix": "^4.2.6",
     "awilix-koa": "^4.0.0",
@@ -40,13 +39,11 @@
     "yenv": "^2.1.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.5",
-    "@babel/core": "^7.11.1",
-    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
-    "@babel/plugin-transform-runtime": "^7.11.0",
-    "@babel/polyfill": "^7.10.4",
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^10.1.0",
     "babel-plugin-source-map-support": "^2.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
     "cross-env": "^7.0.2",
     "eslint": "^7.6.0",
@@ -113,9 +110,8 @@
   "babel": {
     "sourceMaps": "both",
     "plugins": [
-      "@babel/plugin-proposal-object-rest-spread",
-      "@babel/plugin-transform-runtime",
-      "@babel/transform-runtime"
+      "transform-runtime",
+      "transform-object-rest-spread"
     ],
     "presets": [
       [
@@ -124,13 +120,7 @@
           "targets": {
             "node": "current"
           }
-        },
-        [
-          "@babel/preset-env",
-          {
-            "useBuiltIns": false
-          }
-        ]
+        }
       ]
     ],
     "env": {

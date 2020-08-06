@@ -4,7 +4,8 @@ import {logger} from './logger'
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
 /**
- * Utility script that returns values declared in the `env.yaml` file
+ * Utility script that returns environment variables declared in the local
+ * `env.yaml` file. See env.example.yaml to understand its structure.
  */
 export const env = yenv('env.yaml', {
     message: key => `[yenv] ${key} not found in the loaded environment`,

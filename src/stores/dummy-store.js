@@ -10,8 +10,22 @@ export default function createTodoStore(logger, db) {
         async find() {
             // logger.debug('Finding todos')
             // return {values: [...__todos]}
-            // const cuisines = await db.Cuisines.findAll();
-            // return {cuisines}
+            const cuisines = await db.Cuisines.findAll({
+                include: [
+                    {
+                        model: db.Images,
+                        attributes: {
+                            exclude: ['id']
+                        }
+                    }
+                ],
+                attributes: {
+                    exclude: [
+                        'imageId',
+                    ]
+                }
+            });
+            return {cuisines}
             // const images = await db.Images.findAll();
             // return  {images}
         },

@@ -29,6 +29,7 @@ export function configureContainer() {
         .register({
             // Provide previously constructed logger as it is.
             logger: asValue(logger),
+            // Inject the database
             db: asValue(db)
         })
 }

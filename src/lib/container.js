@@ -1,5 +1,6 @@
 import {asValue, createContainer, InjectionMode, Lifetime} from 'awilix'
 import {logger} from './logger'
+import db from '../database/models'
 
 /**
  * Loads modules with Awilix dependency injection library.
@@ -27,6 +28,7 @@ export function configureContainer() {
         })
         .register({
             // Provide previously constructed logger as it is.
-            logger: asValue(logger)
+            logger: asValue(logger),
+            db: asValue(db)
         })
 }

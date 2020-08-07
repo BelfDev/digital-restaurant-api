@@ -2,14 +2,32 @@
  * In-memory todos store.
  * For demo purposes, gets the logger injected.
  */
-export default function createTodoStore(logger) {
-    let __todos = []
+export default function createTodoStore(logger, db) {
+    let __todos = ['Todo 1', 'Todo 2']
     let __ids = 1
 
     return {
         async find() {
-            logger.debug('Finding todos')
-            return [...__todos]
+            // logger.debug('Finding todos')
+            // return {values: [...__todos]}
+            const cuisines = await db.Cuisines.findAll({
+                include: [
+                    {
+                        model: db.Images,
+                        attributes: {
+                            exclude: ['id']
+                        }
+                    }
+                ],
+                attributes: {
+                    exclude: [
+                        'imageId',
+                    ]
+                }
+            });
+            return {cuisines}
+            // const images = await db.Images.findAll();
+            // return  {images}
         },
 
         async get(id) {

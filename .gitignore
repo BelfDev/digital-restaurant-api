@@ -146,3 +146,5 @@ out/
 # File-based project format
 *.iws
 
+# Environment variables
+env.yaml

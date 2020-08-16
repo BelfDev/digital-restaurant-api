@@ -2,44 +2,28 @@ function withAssociations(sequelize) {
     const {Cuisines, Images, Outlets, Locations, OutletImages} = sequelize.models;
 
     // Cuisine relationship
-    Cuisines.hasOne(Images, {
-        foreignKey: 'id',
-        as: 'image'
+    Images.hasMany(Cuisines, {
+        foreignKey: 'imageId',
     });
-    Images.belongsTo(Cuisines, {
-        foreignKey: 'id'
+    Cuisines.belongsTo(Images, {
+        foreignKey: 'imageId',
+        as: 'image'
     });
 
     // Outlet relationship
-    Outlets.hasOne(Cuisines, {
-        foreignKey: 'id',
+    Cuisines.hasMany(Outlets, {
+        foreignKey: 'cuisineId',
+    });
+    Outlets.belongsTo(Cuisines, {
+        foreignKey: 'cuisineId',
         as: 'cuisine'
     });
-    Cuisines.belongsTo(Outlets, {
-        foreignKey: 'id'
+    Locations.hasMany(Outlets, {
+        foreignKey: 'locationId',
     });
-    Outlets.hasOne(Locations, {
-        foreignKey: 'id',
+    Outlets.belongsTo(Locations, {
+        foreignKey: 'locationId',
         as: 'location'
-    });
-    Locations.belongsTo(Outlets, {
-        foreignKey: 'id'
-    });
-
-    // Outlet-image relationship
-    OutletImages.hasOne(Outlets, {
-        foreignKey: 'id',
-        as: 'outlet'
-    });
-    OutletImages.hasOne(Images, {
-        foreignKey: 'id',
-        as: 'image'
-    });
-    Outlets.belongsTo(OutletImages, {
-        foreignKey: 'id',
-    });
-    Images.belongsTo(OutletImages, {
-        foreignKey: 'id',
     });
 
 }

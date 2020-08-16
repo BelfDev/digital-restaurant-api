@@ -20,6 +20,14 @@ const createCuisineStore = (logger, db) => {
                 attributes: {
                     exclude: ['id']
                 }
+            },
+            {
+                model: db.Images,
+                as: 'images',
+                attributes: {
+                    exclude: ['id']
+                },
+                through: {attributes: []}
             }
         ],
         attributes: {

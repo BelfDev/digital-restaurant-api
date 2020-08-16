@@ -25,6 +25,8 @@ function withAssociations(sequelize) {
         foreignKey: 'locationId',
         as: 'location'
     });
+    Outlets.belongsToMany(Images, {through: 'OutletImages', foreignKey: 'outletId', as: 'images'})
+    Images.belongsToMany(Outlets, {through: 'OutletImages', foreignKey: 'imageId'})
 
 }
 

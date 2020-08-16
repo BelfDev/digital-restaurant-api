@@ -35,6 +35,18 @@ export default class Outlets extends Model {
 			type: DataTypes.INTEGER,
 			allowNull: false,
 			field: 'price_level'
+		},
+		locationId: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			references: {
+				model: {
+					tableName: 'locations',
+					schema: 'public'
+				},
+				key: 'id'
+			},
+			field: 'location_id'
 		}
 	}, {
 		sequelize,

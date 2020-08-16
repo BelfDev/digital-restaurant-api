@@ -18,7 +18,7 @@ export default class CuisineService {
      * @returns {Promise<*>}
      */
     async find(params) {
-        const result = await this.cuisineStore.find(params);
+        const result = await this.cuisineStore.find();
         return {result};
     }
 

@@ -19,7 +19,7 @@ const createCuisineStore = (logger, db) => {
                 as: 'location',
                 attributes: {
                     exclude: ['id']
-                }
+                },
             },
             {
                 model: db.Images,
@@ -38,12 +38,28 @@ const createCuisineStore = (logger, db) => {
         },
     };
 
+    //TODO: Refactor the enhancement logic to make it safer and generic
+    const enhanceOptionsWithParams = (params) => {
+        logger.debug('Parsing custom parameters...');
+
+        const {city} = params;
+
+        if (city) {
+            options.include[1]['where'] = {
+                city: params.city
+            }
+        }
+    };
+
     return {
         /**
          * Retrieves all outlet entities from the database.
          * @returns {Promise<Outlets[]>}
          */
-        async find() {
+        async find(params) {
+            if (params)
+                enhanceOptionsWithParams(params);
+
             logger.debug('Retrieving outlets...')
             return await Outlet.findAll(options);
         },

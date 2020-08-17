@@ -15,17 +15,17 @@ export default class CuisineService {
     /**
      * Fetch all cuisines according to the given parameter.
      * @param params optional parameters to filter the result.
-     * @returns {Promise<*>}
+     * @returns {Promise<{result: Cuisines[]}>}
      */
     async find(params) {
         const result = await this.cuisineStore.find();
         return {result};
     }
-
+ø
     /**
      * Searches for a specific cuisine by the given identifier.
      * @param id integer identifier
-     * @returns {Promise<*>}
+     * @returns {Promise<{result: Cuisines}>}
      */
     async get(id) {
         assertId(id)

@@ -33,5 +33,7 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 withAssociations(sequelize);
+// Workaround to forward doubles as Float instead of String
+Sequelize.postgres.DECIMAL.parse = function (value) { return parseFloat(value); };
 
 module.exports = db;

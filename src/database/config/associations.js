@@ -1,3 +1,5 @@
+import FeaturedOutlets from "../models/FeaturedOutlets";
+
 function withAssociations(sequelize) {
     const {Cuisines, Images, Outlets, Locations, OutletImages} = sequelize.models;
 
@@ -27,6 +29,15 @@ function withAssociations(sequelize) {
     });
     Outlets.belongsToMany(Images, {through: 'OutletImages', foreignKey: 'outletId', as: 'images'})
     Images.belongsToMany(Outlets, {through: 'OutletImages', foreignKey: 'imageId'})
+
+    // Featured outlets relationship
+    Outlets.hasMany(FeaturedOutlets, {
+        foreignKey: 'outletId'
+    });
+    FeaturedOutlets.belongsTo(Outlets, {
+        foreignKey: 'outletId',
+        as: 'outlet'
+    })
 
 }
 

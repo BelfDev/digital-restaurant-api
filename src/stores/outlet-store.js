@@ -1,53 +1,53 @@
 /**
  * Data access layer for the Outlet model.
  * Gets the logger and database injected.
- * Methods: FIND, GET, CREATE, UPDATE, REMOVE.
+ * Methods: FIND, GET
  */
-const createCuisineStore = (logger, db) => {
+const createOutletStore = (logger, db) => {
     const Outlet = db.Outlets;
-    const options = {
-        include: [
-            {
-                model: db.Cuisines,
-                as: 'cuisine',
-                attributes: {
-                    exclude: ['id', 'imageId']
+
+    const buildLocationCondition = (city) => city ? {
+        where: {
+            city: city
+        }
+    } : {};
+
+    const getOptions = (params) => {
+        let locationCondition;
+        if (params)
+            locationCondition = buildLocationCondition(params.city);
+        return {
+            include: [
+                {
+                    model: db.Cuisines,
+                    as: 'cuisine',
+                    attributes: {
+                        exclude: ['id', 'imageId']
+                    },
                 },
+                {
+                    model: db.Locations,
+                    as: 'location',
+                    attributes: {
+                        exclude: ['id']
+                    },
+                    ...locationCondition
+                },
+                {
+                    model: db.Images,
+                    as: 'images',
+                    attributes: {
+                        exclude: ['id']
+                    },
+                    through: {attributes: []}
+                }
+            ],
+            attributes: {
+                exclude: [
+                    'cuisineId',
+                    'locationId',
+                ]
             },
-            {
-                model: db.Locations,
-                as: 'location',
-                attributes: {
-                    exclude: ['id']
-                },
-            },
-            {
-                model: db.Images,
-                as: 'images',
-                attributes: {
-                    exclude: ['id']
-                },
-                through: {attributes: []}
-            }
-        ],
-        attributes: {
-            exclude: [
-                'cuisineId',
-                'locationId',
-            ]
-        },
-    };
-
-    //TODO: Refactor the enhancement logic to make it safer and generic
-    const enhanceOptionsWithParams = (params) => {
-        logger.debug('Parsing custom parameters...');
-
-        const {city} = params;
-
-        if (city) {
-            options.include[1]['where'] = {
-                city: params.city
-            }
         }
     };
 
@@ -57,9 +57,7 @@ const createCuisineStore = (logger, db) => {
          * @returns {Promise<Outlets[]>}
          */
         async find(params) {
-            if (params)
-                enhanceOptionsWithParams(params);
-
+            const options = getOptions(params);
             logger.debug('Retrieving outlets...')
             return await Outlet.findAll(options);
         },
@@ -79,4 +77,4 @@ const createCuisineStore = (logger, db) => {
     };
 };
 
-export default createCuisineStore;
+export default createOutletStore;

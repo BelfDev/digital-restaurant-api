@@ -6,6 +6,7 @@ import {createController} from 'awilix-koa'
  */
 const api = outletService => ({
     findOutlets: async ctx => ctx.ok(await outletService.find(ctx.query)),
+    findFeaturedOutlets: async ctx => ctx.ok(await outletService.findFeatured(ctx.query)),
     getOutlet: async ctx => ctx.ok(await outletService.get(ctx.params.id)),
 });
 
@@ -15,4 +16,7 @@ const api = outletService => ({
 export default createController(api)
     .prefix('/outlets')
     .get('', 'findOutlets')
+    .get('/featured', 'findFeaturedOutlets')
     .get('/:id', 'getOutlet');
+
+

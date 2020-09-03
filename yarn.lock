@@ -2570,7 +2570,7 @@ eslint-visitor-keys@^1.0.0, eslint-visitor-keys@^1.1.0, eslint-visitor-keys@^1.3
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.3.0.tgz#30ebd1ef7c2fdff01c3a4f151044af25fab0523e"
   integrity sha512-6J72N8UNa462wa/KFODt/PJ3IU60SDpC3QXC1Hjc1BXXpfL2C9R5+AU7jhe0F6GREqVMh4Juu+NY7xn+6dipUQ==
 
-eslint@^7.5.0, eslint@^7.6.0:
+eslint@^7.6.0:
   version "7.6.0"
   resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.6.0.tgz#522d67cfaea09724d96949c70e7a0550614d64d6"
   integrity sha512-QlAManNtqr7sozWm5TF4wIH9gmUm2hE3vNRUvyoYAa4y1l5/jxD/PQStEjBMQtCqZmSep8UxrcecI60hOpe61w==
@@ -5931,13 +5931,12 @@ semver@^7.2.1, semver@^7.3.2:
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.2.tgz#604962b052b81ed0786aae84389ffba70ffd3938"
   integrity sha512-OrOb32TeeambH6UrhtShmF7CRDqhL6/5XpPNp2DuRH6+9QLw/orhp72j87v8Qa1ScDkvrrBNpZcDejAirJmfXQ==
 
-sequelize-auto@^0.5.3:
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/sequelize-auto/-/sequelize-auto-0.5.3.tgz#e1ddf49b37a8eedbae3929654201c5a4bfecc34d"
-  integrity sha512-j1ucwvEgtO3W7IYuJJQ9ddc08CfQfxlGXvStjqPV2b137taAXyhNWseCm5/IKpIqosbnxMHi+CDbfpa081PFPw==
+sequelize-auto@^0.5.4:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/sequelize-auto/-/sequelize-auto-0.5.4.tgz#f09a1659de9d1439617e2a18a1860d1129734de4"
+  integrity sha512-N7/o4bECNMPE9hwtfFNIx8Yz8LhhMpvsYOOW7t+3ZNpii+XPZDpXe0yqyuYrRSS3nbTKX2+ZX8bl7zbCM8iQDQ==
   dependencies:
     async "^3.2.0"
-    eslint "^7.5.0"
     graceful-fs-extra "^2.0.0"
     mkdirp "^1.0.4"
     yargs "^15.4.1"

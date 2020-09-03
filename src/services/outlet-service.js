@@ -46,4 +46,30 @@ export default class OutletService {
         return {result};
     }
 
+    /**
+     * Fetch all products from a specific outlet id.
+     * @param id integer identifier
+     * @returns {Promise<{result: Outlets}>}
+     */
+    async findProducts(id) {
+        assertId(id)
+        const result = await this.outletStore.findProducts(id).then(
+            NotFound.makeAssert(`Outlet with id "${id}" not found`)
+        );
+        return {result};
+    }
+
+    /**
+     * Fetch all featured products from a specific outlet id.
+     * @param id integer identifier
+     * @returns {Promise<{result: Outlets}>}
+     */
+    async findFeaturedProducts(id) {
+        assertId(id)
+        const result = await this.outletStore.findFeaturedProducts(id).then(
+            NotFound.makeAssert(`Outlet with id "${id}" not found`)
+        );
+        return {result};
+    }
+
 }

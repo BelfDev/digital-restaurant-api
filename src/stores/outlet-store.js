@@ -74,6 +74,34 @@ const createOutletStore = (logger, db) => {
             }
             return foundOutlet;
         },
+
+        /**
+         * Retrieve products associated with a given outlet id.
+         * @param id integer matching the outlet foreign key
+         * @returns {Promise<Products[]>}
+         */
+        async findProducts(id) {
+            logger.debug(`Finding products for outlet with id ${id}`)
+            const foundProducts = await Outlet.findByPk(id, options);
+            if (!foundProducts) {
+                return null
+            }
+            return foundOutlet;
+        },
+
+        /**
+         * Retrieve featured products associated with a given outlet id.
+         * @param id integer matching the outlet foreign key
+         * @returns {Promise<Products[]>}
+         */
+        async findFeaturedProducts(id) {
+            logger.debug(`Finding featured products for outlet with id ${id}`)
+            const foundProducts = await Outlet.findByPk(id, options);
+            if (!foundProducts) {
+                return null
+            }
+            return foundOutlet;
+        },
     };
 };
 

@@ -1,7 +1,9 @@
 import FeaturedOutlets from "../models/FeaturedOutlets";
+import Categories from "../models/Categories";
+import Ingredients from "../models/Ingredients";
 
 function withAssociations(sequelize) {
-    const {Cuisines, Images, Outlets, Locations, OutletImages} = sequelize.models;
+    const {Cuisines, Images, Outlets, Locations, Products, Categories, Ingredients} = sequelize.models;
 
     // Cuisine relationship
     Images.hasMany(Cuisines, {
@@ -30,6 +32,9 @@ function withAssociations(sequelize) {
     Outlets.belongsToMany(Images, {through: 'OutletImages', foreignKey: 'outletId', as: 'images'})
     Images.belongsToMany(Outlets, {through: 'OutletImages', foreignKey: 'imageId'})
 
+    Outlets.belongsToMany(Products, {through: 'OutletProducts', foreignKey: 'outletId', as: 'products'})
+    Products.belongsToMany(Outlets, {through: 'OutletProducts', foreignKey: 'productId'})
+
     // Featured outlets relationship
     Outlets.hasMany(FeaturedOutlets, {
         foreignKey: 'outletId'
@@ -38,6 +43,39 @@ function withAssociations(sequelize) {
         foreignKey: 'outletId',
         as: 'outlet'
     })
+
+    // Product relationship
+    Products.belongsToMany(Images, {through: 'ProductImages', foreignKey: 'productId', as: 'images'})
+    Images.belongsToMany(Products, {through: 'ProductImages', foreignKey: 'imageId'})
+
+    Products.belongsToMany(Categories, {through: 'ProductCategories', foreignKey: 'productId', as: 'categories'})
+    Categories.belongsToMany(Products, {through: 'ProductCategories', foreignKey: 'categoryId'})
+
+    Products.belongsToMany(Ingredients, {through: 'ProductIngredients', foreignKey: 'productId', as: 'ingredients'})
+    Ingredients.belongsToMany(Products, {through: 'ProductIngredients', foreignKey: 'ingredientId'})
+
+    Outlets.belongsToMany(Products, {through: 'FeaturedOutletProducts', foreignKey: 'outletId', as: 'featuredProducts'})
+    Products.belongsToMany(Outlets, {through: 'FeaturedOutletProducts', foreignKey: 'productId'})
+
+
+    // Category relationship
+    Images.hasMany(Categories, {
+        foreignKey: 'imageId',
+    });
+    Categories.belongsTo(Images, {
+        foreignKey: 'imageId',
+        as: 'image'
+    });
+
+
+    // Ingredient relationship
+    Images.hasMany(Ingredients, {
+        foreignKey: 'imageId',
+    });
+    Ingredients.belongsTo(Images, {
+        foreignKey: 'imageId',
+        as: 'image'
+    });
 
 }
 

@@ -63,12 +63,13 @@ const createFeaturedStore = (logger, db) => {
          * Retrieves all (featured) outlet entities from the database.
          * @returns {Promise<Outlets[]>}
          */
-        async find(params) {
+        async findFeaturedOutlets(params) {
             const options = getOptions(params);
             logger.debug('Retrieving outlets...')
-            return await FeaturedOutlet.findAll(options)
-                .then((result) => result.map(r => r.outlet));
+            return FeaturedOutlet.findAll(options)
+                .then((result) => result.map(r => r['outlet']));
         },
+
     };
 };
 

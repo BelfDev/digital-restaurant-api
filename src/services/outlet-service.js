@@ -29,7 +29,7 @@ export default class OutletService {
      * @returns {Promise<{result: Outlets[]}>}
      */
     async findFeatured(params) {
-        const result = await this.featuredStore.find(params);
+        const result = await this.featuredStore.findFeaturedOutlets(params);
         return {result};
     }
 
@@ -56,7 +56,7 @@ export default class OutletService {
         const result = await this.outletStore.findProducts(id).then(
             NotFound.makeAssert(`Outlet with id "${id}" not found`)
         );
-        return {result};
+        return {result : result['products']};
     }
 
     /**
@@ -66,10 +66,13 @@ export default class OutletService {
      */
     async findFeaturedProducts(id) {
         assertId(id)
-        const result = await this.outletStore.findFeaturedProducts(id).then(
+        let params = {
+            isFeatured: true
+        }
+        const result = await this.outletStore.findProducts(id, params).then(
             NotFound.makeAssert(`Outlet with id "${id}" not found`)
         );
-        return {result};
+        return {result : result['featuredProducts']};
     }
 
 }

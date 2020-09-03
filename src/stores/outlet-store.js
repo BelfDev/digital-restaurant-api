@@ -12,7 +12,7 @@ const createOutletStore = (logger, db) => {
         }
     } : {};
 
-    const getOptions = (params) => {
+    const getOutletOptions = (params) => {
         let locationCondition;
         if (params)
             locationCondition = buildLocationCondition(params.city);
@@ -51,13 +51,73 @@ const createOutletStore = (logger, db) => {
         }
     };
 
+    const getProductOptions = (params) => {
+        let associationIdentifier = 'products';
+        if (params && params['isFeatured']) {
+            associationIdentifier = 'featuredProducts'
+        }
+        return {
+            include: [
+                {
+                    model: db.Products,
+                    as: associationIdentifier,
+                    include: [
+                        {
+                            model: db.Images,
+                            as: 'images',
+                            attributes: {
+                                exclude: ['id']
+                            },
+                            through: {attributes: []}
+                        },
+                        {
+                            model: db.Ingredients,
+                            as: 'ingredients',
+                            attributes: {
+                                exclude: ['id', 'imageId']
+                            },
+                            include: [
+                                {
+                                    model: db.Images,
+                                    as: 'image',
+                                    attributes: {
+                                        exclude: ['id']
+                                    },
+                                }
+                            ],
+                            through: {attributes: []}
+                        },
+                        {
+                            model: db.Categories,
+                            as: 'categories',
+                            attributes: {
+                                exclude: ['id', 'imageId']
+                            },
+                            include: [
+                                {
+                                    model: db.Images,
+                                    as: 'image',
+                                    attributes: {
+                                        exclude: ['id']
+                                    },
+                                }
+                            ],
+                            through: {attributes: []}
+                        }
+                    ],
+                    through: {attributes: []}
+                },
+            ],
+        }
+    }
+
     return {
         /**
          * Retrieves all outlet entities from the database.
          * @returns {Promise<Outlets[]>}
          */
         async find(params) {
-            const options = getOptions(params);
+            const options = getOutletOptions(params);
             logger.debug('Retrieving outlets...')
             return await Outlet.findAll(options);
         },
@@ -68,7 +128,7 @@ const createOutletStore = (logger, db) => {
          */
         async get(id) {
             logger.debug(`Getting outlet with id ${id}`)
-            const foundOutlet = await Outlet.findByPk(id, options);
+            const foundOutlet = await Outlet.findByPk(id, getOutletOptions());
             if (!foundOutlet) {
                 return null
             }
@@ -78,30 +138,18 @@ const createOutletStore = (logger, db) => {
         /**
          * Retrieve products associated with a given outlet id.
          * @param id integer matching the outlet foreign key
+         * @param params object containing filtering options
          * @returns {Promise<Products[]>}
          */
-        async findProducts(id) {
+        async findProducts(id, params) {
             logger.debug(`Finding products for outlet with id ${id}`)
-            const foundProducts = await Outlet.findByPk(id, options);
-            if (!foundProducts) {
+            const foundOutlet = await Outlet.findByPk(id, getProductOptions(params));
+            if (!foundOutlet) {
                 return null
             }
             return foundOutlet;
         },
 
-        /**
-         * Retrieve featured products associated with a given outlet id.
-         * @param id integer matching the outlet foreign key
-         * @returns {Promise<Products[]>}
-         */
-        async findFeaturedProducts(id) {
-            logger.debug(`Finding featured products for outlet with id ${id}`)
-            const foundProducts = await Outlet.findByPk(id, options);
-            if (!foundProducts) {
-                return null
-            }
-            return foundOutlet;
-        },
     };
 };
 

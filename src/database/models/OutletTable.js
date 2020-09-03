@@ -2,35 +2,36 @@
 
 import { Model } from 'sequelize';
 
-export default class Cuisines extends Model {
+export default class OutletTable extends Model {
 	static init(sequelize, DataTypes) {
 	super.init({
-		id: {
+		number: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
 			primaryKey: true
 		},
-		title: {
-			type: DataTypes.CITEXT,
-			allowNull: false
-		},
-		imageId: {
+		outletId: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
 			references: {
 				model: {
-					tableName: 'images',
+					tableName: 'outlets',
 					schema: 'public'
 				},
 				key: 'id'
 			},
-			field: 'image_id'
+			field: 'outlet_id'
+		},
+		occupied: {
+			type: DataTypes.BOOLEAN,
+			allowNull: false,
+			defaultValue: false
 		}
 	}, {
 		sequelize,
-		tableName: 'cuisines',
+		tableName: 'outlet_table',
 		schema: 'public'
 	});
-	return Cuisines;
+	return OutletTable;
 	}
 }

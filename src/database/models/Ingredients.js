@@ -11,7 +11,7 @@ export default class Ingredients extends Model {
 			primaryKey: true
 		},
 		title: {
-			type: DataTypes.TEXT,
+			type: DataTypes.CITEXT,
 			allowNull: false
 		},
 		imageId: {

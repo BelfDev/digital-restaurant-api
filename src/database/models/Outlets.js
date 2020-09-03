@@ -23,7 +23,7 @@ export default class Outlets extends Model {
 			field: 'cuisine_id'
 		},
 		title: {
-			type: DataTypes.TEXT,
+			type: DataTypes.CITEXT,
 			allowNull: false
 		},
 		rating: {

@@ -11,7 +11,7 @@ export default class Images extends Model {
 			primaryKey: true
 		},
 		source: {
-			type: DataTypes.TEXT,
+			type: DataTypes.CITEXT,
 			allowNull: false
 		}
 	}, {

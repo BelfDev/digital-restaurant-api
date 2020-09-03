@@ -17,7 +17,7 @@ export default class Accounts extends Model {
 			unique: true
 		},
 		password: {
-			type: DataTypes.TEXT,
+			type: DataTypes.CITEXT,
 			allowNull: false
 		},
 		createdOn: {

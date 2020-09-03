@@ -2,7 +2,7 @@
 
 import { Model } from 'sequelize';
 
-export default class FeaturedOutlets extends Model {
+export default class Session extends Model {
 	static init(sequelize, DataTypes) {
 	super.init({
 		id: {
@@ -10,18 +10,17 @@ export default class FeaturedOutlets extends Model {
 			allowNull: false,
 			primaryKey: true
 		},
-		outletId: {
+		userId: {
 			type: DataTypes.INTEGER,
-			allowNull: false,
+			allowNull: true,
 			references: {
 				model: {
-					tableName: 'outlets',
+					tableName: 'accounts',
 					schema: 'public'
 				},
-				key: 'id'
+				key: 'user_id'
 			},
-			unique: true,
-			field: 'outlet_id'
+			field: 'user_id'
 		},
 		createdOn: {
 			type: DataTypes.DATE,
@@ -37,9 +36,9 @@ export default class FeaturedOutlets extends Model {
 		}
 	}, {
 		sequelize,
-		tableName: 'featured_outlets',
+		tableName: 'session',
 		schema: 'public'
 	});
-	return FeaturedOutlets;
+	return Session;
 	}
 }

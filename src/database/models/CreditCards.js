@@ -28,7 +28,7 @@ export default class CreditCards extends Model {
 			field: 'country_code'
 		},
 		cardholder: {
-			type: DataTypes.TEXT,
+			type: DataTypes.CITEXT,
 			allowNull: false
 		},
 		createdOn: {

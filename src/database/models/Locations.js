@@ -11,7 +11,7 @@ export default class Locations extends Model {
 			primaryKey: true
 		},
 		city: {
-			type: DataTypes.TEXT,
+			type: DataTypes.CITEXT,
 			allowNull: false
 		}
 	}, {

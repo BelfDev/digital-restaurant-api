@@ -2,12 +2,13 @@
 
 import { Model } from 'sequelize';
 
-export default class Session extends Model {
+export default class Sessions extends Model {
 	static init(sequelize, DataTypes) {
 	super.init({
 		id: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.UUIDV4,
 			allowNull: false,
+			defaultValue: sequelize.fn('uuid_generate_v4'),
 			primaryKey: true
 		},
 		userId: {
@@ -36,9 +37,9 @@ export default class Session extends Model {
 		}
 	}, {
 		sequelize,
-		tableName: 'session',
+		tableName: 'sessions',
 		schema: 'public'
 	});
-	return Session;
+	return Sessions;
 	}
 }

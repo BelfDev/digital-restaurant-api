@@ -5,54 +5,45 @@
  */
 const createSessionStore = (logger, db) => {
     const Session = db.Sessions;
-    // const options = {
-    //     include: [
-    //         {
-    //             model: db.Images,
-    //             as: 'image',
-    //             attributes: {
-    //                 exclude: ['id']
-    //             }
-    //         }
-    //     ],
-    //     attributes: {
-    //         exclude: [
-    //             'imageId',
-    //         ]
-    //     },
-    // };
 
     return {
-        /**
-         * Retrieves all cuisine entities from the database.
-         * @returns {Promise<Session[]>}
-         */
-        async find() {
-            logger.debug('Retrieving sessions...')
-            return await Session.findAll();
-        },
+
         /**
          * Retrieve a specific cuisine entity from the database via its private key.
          * @param id integer identifier matching the entity Primary Key
-         * @returns {Promise<Session>}
+         * @returns Session
          */
         async get(id) {
             logger.debug(`Getting session with id ${id}`)
-            const foundCuisine = await Session.findByPk(id);
-            if (!foundCuisine) {
+            const foundSession = await Session.findByPk(id);
+            if (!foundSession) {
                 return null
             }
-            return foundCuisine;
+            return foundSession;
         },
 
         /**
-         * Creates new session
-         * @returns {Promise<Session>}
+         * Creates new session.
+         * @returns Session
          */
         async create() {
             const session = await Session.create();
             logger.debug(`Created new session`, session)
             return session;
+        },
+
+        /**
+         * Deletes session with the given identifier.
+         * * @param id integer identifier matching the entity Primary Key
+         */
+        async destroy(id) {
+            const session = await Session.findByPk(id);
+            if (session != null) {
+                logger.debug(`Deleting session`, session);
+                await session.destroy();
+            } else {
+                logger.debug(`Trying to delete the session but it is already null`);
+            }
         },
 
     };

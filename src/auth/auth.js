@@ -3,6 +3,15 @@ import local from 'passport-local'
 import session from "../middlewares/custom-session";
 import Accounts from "../database/models/Accounts";
 
+
+passport.serializeUser((user, next) => {
+    next(null, user);
+});
+
+passport.deserializeUser((obj, next) => {
+    next(null, obj);
+});
+
 // Passport middleware to handle user registration
 passport.use('signup', new local.Strategy({
     usernameField : 'email',
@@ -29,7 +38,7 @@ passport.use('login', new local.Strategy({
     try {
         //Find the user associated with the email provided by the user
         // const user = await UserModel.findOne({ email });
-        const user = {};
+        const user = await Accounts.findOne({ where: { email }})
 
         if( !user ){
             //If the user isn't found in the database, return a message

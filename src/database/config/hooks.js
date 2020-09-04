@@ -10,12 +10,13 @@ function withHooks(sequelize) {
 
     //We'll use this later on to make sure that the user trying to log in has the correct credentials
     Accounts.prototype.isValidPassword = async function(password){
-        const account = this;
-        const salt = sequelize.fn('gen_salt', 'bf', '4');
-        const hashedPassword = sequelize.fn('crypt', password, salt);
-        return account.password === hashedPassword;
+        const query = `SELECT user_id FROM accounts WHERE password = crypt(\'${password}\', \'${this.password}\')`;
+        const account = await sequelize.query(query, {
+            model: Accounts,
+            mapToModel: true // pass true here if you have any mapped fields
+        });
+        return account.length > 0
     }
-
 }
 
 module.exports = {withHooks};

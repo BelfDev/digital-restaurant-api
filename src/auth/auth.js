@@ -2,7 +2,7 @@ import passport from 'koa-passport';
 import local from 'passport-local'
 import session from "../middlewares/custom-session";
 import Accounts from "../database/models/Accounts";
-
+import jwt from 'passport-jwt';
 
 passport.serializeUser((user, next) => {
     next(null, user);
@@ -54,6 +54,21 @@ passport.use('login', new local.Strategy({
         return done(null, user, { message : 'Logged in Successfully'});
     } catch (error) {
         return done(error);
+    }
+}));
+
+// Checks if the token sent by the user is valid
+passport.use(new jwt.Strategy({
+    // Secret used to sign the JWT
+    secretOrKey : 'top_secret',
+    // Extracts the token from the auth header (Bearer)
+    jwtFromRequest : jwt.ExtractJwt.fromAuthHeaderAsBearerToken()
+}, async (token, done) => {
+    try {
+        //Pass the user details to the next middleware
+        return done(null, token.user);
+    } catch (error) {
+        done(error);
     }
 }));
 

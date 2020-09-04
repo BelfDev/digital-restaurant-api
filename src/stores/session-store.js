@@ -28,7 +28,7 @@ const createSessionStore = (logger, db) => {
          */
         async create() {
             const session = await Session.create();
-            logger.debug(`Created new session`, session)
+            logger.debug(`Created new session`, session.dataValues)
             return session;
         },
 

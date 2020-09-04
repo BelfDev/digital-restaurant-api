@@ -23,7 +23,7 @@ export default class Orders extends Model {
 			field: 'cart_id'
 		},
 		userId: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.UUIDV4,
 			allowNull: false,
 			references: {
 				model: {

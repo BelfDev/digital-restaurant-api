@@ -12,7 +12,7 @@ export default class Sessions extends Model {
 			primaryKey: true
 		},
 		userId: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.UUIDV4,
 			allowNull: true,
 			references: {
 				model: {

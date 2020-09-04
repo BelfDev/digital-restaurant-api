@@ -24,7 +24,7 @@ export default class Payments extends Model {
 			field: 'payment_method_id'
 		},
 		userId: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.UUIDV4,
 			allowNull: false,
 			references: {
 				model: {

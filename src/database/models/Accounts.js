@@ -6,9 +6,9 @@ export default class Accounts extends Model {
 	static init(sequelize, DataTypes) {
 	super.init({
 		userId: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.UUIDV4,
 			allowNull: false,
-			autoIncrement: true,
+			defaultValue: sequelize.fn('uuid_generate_v4'),
 			primaryKey: true,
 			field: 'user_id'
 		},

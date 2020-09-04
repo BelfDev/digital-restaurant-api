@@ -11,7 +11,7 @@ export default class Profiles extends Model {
 			primaryKey: true
 		},
 		userId: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.UUIDV4,
 			allowNull: false,
 			references: {
 				model: {

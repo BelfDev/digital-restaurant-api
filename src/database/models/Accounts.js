@@ -8,6 +8,7 @@ export default class Accounts extends Model {
 		userId: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
+			autoIncrement: true,
 			primaryKey: true,
 			field: 'user_id'
 		},

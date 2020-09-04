@@ -27,18 +27,22 @@ export default class AccountService {
     }
 
     async create(ctx) {
-        return this.passport.authenticate('signup', async (err, user, info, status) => {
-            this.logger.debug('Creating user account');
-
-            // if (user === false) {
-            //     ctx.body = { success: false }
-            //     ctx.throw(401)
-            // } else {
-            //     ctx.body = { success: true }
-            //     return ctx.login(user, {session : false})
-            // }
-
+        this.logger.debug('Creating user account');
+        return this.passport.authenticate('signup', async (err, user) => {
+            if (err) {
+                this.logger.debug('Failed to create new user account.', err.message);
+                ctx.throw(401, err.message)
+            } else {
+                const { userId, email, createdOn } = user.dataValues;
+                this.logger.debug('Created new user account: ', email);
+                ctx.body = {
+                    user: {
+                        userId,
+                        email,
+                        createdOn
+                    }
+                }
+            }
         })(ctx)
     }
-
 }

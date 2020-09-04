@@ -3,19 +3,17 @@ import local from 'passport-local'
 import session from "../middlewares/custom-session";
 import Accounts from "../database/models/Accounts";
 
-//Create a passport middleware to handle user registration
+// Passport middleware to handle user registration
 passport.use('signup', new local.Strategy({
     usernameField : 'email',
     passwordField : 'password'
 }, async (email, password, done) => {
     try {
         //Save the information provided by the user to the the database
-        // const user = await UserModel.create({ email, password });
         const user = await Accounts.create({
             email,
             password
         });
-
         //Send the user information to the next middleware
         return done(null, user);
     } catch (error) {

@@ -6,7 +6,7 @@ import bodyParser from "koa-bodyparser";
  * This file contains functions that map HTTP calls to the AccountService.
  */
 const api = accountService => ({
-    loginAccount: async ctx => ctx.created(await accountService.login(ctx)),
+    loginAccount: async ctx => ctx.ok(await accountService.login(ctx)),
     createAccount: async ctx => ctx.created(await accountService.create(ctx)),
 });
 

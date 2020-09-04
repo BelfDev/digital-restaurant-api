@@ -1,9 +1,6 @@
-import FeaturedOutlets from "../models/FeaturedOutlets";
-import Categories from "../models/Categories";
-import Ingredients from "../models/Ingredients";
 
 function withAssociations(sequelize) {
-    const {Cuisines, Images, Outlets, Locations, Products, Categories, Ingredients} = sequelize.models;
+    const {Cuisines, Images, Outlets, Locations, Products, Categories, Ingredients, FeaturedOutlets} = sequelize.models;
 
     // Cuisine relationship
     Images.hasMany(Cuisines, {

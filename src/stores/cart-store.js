@@ -5,6 +5,7 @@
  */
 const createCartStore = (logger, db) => {
     const Cart = db.Carts;
+    const CartItem = db.CartItems;
 
     return {
         /**
@@ -41,14 +42,17 @@ const createCartStore = (logger, db) => {
         /**
          * Create or update a cart entity
          * If an id is provided, this function will update an existing entry
-         * @param id integer identifier matching the entity Primary Key
+         * @param cartId id integer identifier matching the entity Primary Key
          * @param cartData object used to update the cart values
          * @returns {Promise<[Carts, (boolean | null)]|*>}
          */
-        async upsert(id, cartData) {
+        async upsert(cartId, cartData) {
             logger.debug(`Creating or updating cart`)
             const result =  await Cart.upsert(
-                cartData,
+                {
+                    id: cartId,
+                    ...cartData
+                },
                 {
                     returning: true
                 }
@@ -59,7 +63,28 @@ const createCartStore = (logger, db) => {
             } else {
                 return result;
             }
+        },
 
+        /**
+         * Create or update a cart item entity
+         * If an id is provided, this function will update an existing entry
+         * @param data object used to update the cart values
+         * @returns {Promise<[Carts, (boolean | null)]|*>}
+         */
+        async upsertCartItem(data) {
+            logger.debug(`Creating or updating cart item`)
+            const result =  await CartItem.upsert(
+                data,
+                {
+                    returning: true
+                }
+            )
+            if (result && result.length > 0) {
+                logger.debug(`Updated cart`, result)
+                return result[0].dataValues;
+            } else {
+                return result;
+            }
         },
     };
 };

@@ -24,7 +24,9 @@ export default class CartService {
         const result = await this.cartStore.find(sessionId);
         return {result};
     }
+
     ø
+
     /**
      * Searches for a specific cart by the given identifier.
      * @param ctx koa's context object
@@ -46,14 +48,36 @@ export default class CartService {
      */
     async upsert(ctx) {
         const sessionId = ctx.session.id;
+        const cartId = ctx.params.id;
         const body = ctx.request.body;
         if (sessionId && body) {
             const cartData = {sessionId, outletId: body.outletId, subtotal: body.subtotal}
-            if (body.id) {
-                cartData.id = body.id;
+            const updatedCart = await this.cartStore.upsert(cartId, cartData);
+            if (updatedCart.sessionId === sessionId) {
+                return {result: updatedCart};
             }
-            const updatedCart = await this.cartStore.upsert(body.cartId, cartData);
-            return {result: updatedCart};
+        }
+        return ctx.throw(400);
+    }
+
+    /**
+     * Updates or insert new cart item
+     */
+    async upsertCartItem(ctx) {
+        const sessionId = ctx.session.id;
+        const cartId = ctx.params.id;
+        const body = ctx.request.body;
+        assertSessionId(sessionId)
+        if (body) {
+            const data = {
+                cartId: cartId,
+                productId: body.productId,
+                quantity: body.quantity,
+                total: body.total,
+            }
+            await this.cartStore.upsertCartItem(data);
+            const cart = await this.cartStore.get(cartId, sessionId);
+            return {result: cart};
         }
         return ctx.throw(400);
     }

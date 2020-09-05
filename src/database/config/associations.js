@@ -1,6 +1,6 @@
 
 function withAssociations(sequelize) {
-    const {Cuisines, Images, Outlets, Locations, Products, Categories, Ingredients, FeaturedOutlets} = sequelize.models;
+    const {Cuisines, Images, Outlets, Locations, Products, Categories, Ingredients, FeaturedOutlets, Carts, Sessions, CartItems} = sequelize.models;
 
     // Cuisine relationship
     Images.hasMany(Cuisines, {
@@ -73,6 +73,13 @@ function withAssociations(sequelize) {
         foreignKey: 'imageId',
         as: 'image'
     });
+
+    // Cart relationship
+    Sessions.belongsToMany(Images, {through: 'SessionCarts', foreignKey: 'sessionId', as: 'carts'})
+    Carts.belongsToMany(Products, {through: 'SessionCarts', foreignKey: 'cartId'})
+
+    Carts.belongsToMany(Products, {through: 'CartItems', foreignKey: 'cartId', as: 'items'})
+    Products.belongsToMany(Carts, {through: 'CartItems', foreignKey: 'productId'})
 
 }
 

@@ -20,8 +20,8 @@ export default class CartItems extends Model {
 		},
 		productId: {
 			type: DataTypes.INTEGER,
-			primaryKey: true,
 			allowNull: false,
+			primaryKey: true,
 			references: {
 				model: {
 					tableName: 'products',

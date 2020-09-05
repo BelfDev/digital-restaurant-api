@@ -19,6 +19,10 @@ export default createController(api)
     .prefix('/carts')
     .get('', 'findCarts')
     .get('/:id', 'getCart')
+    .post('', 'createOrUpdateCart', {
+        // Maps `POST /todos` to the `createTodo` function on the returned object from `API`
+        before: [bodyParser()] // Runs the bodyParser just for this endpoint
+    })
     .post('/:id', 'createOrUpdateCart', {
         // Maps `POST /todos` to the `createTodo` function on the returned object from `API`
         before: [bodyParser()] // Runs the bodyParser just for this endpoint

@@ -25,8 +25,6 @@ export default class CartService {
         return {result};
     }
 
-    ø
-
     /**
      * Searches for a specific cart by the given identifier.
      * @param ctx koa's context object
@@ -37,9 +35,10 @@ export default class CartService {
         const sessionId = ctx.session.id;
         assertId(id)
         assertSessionId(sessionId)
-        const result = await this.cartStore.get(id, sessionId).then(
+        const cart = await this.cartStore.get(id, sessionId).then(
             NotFound.makeAssert(`Cuisine with id "${id}" not found`)
         );
+        const result = this._formatCartObject(cart);
         return {result};
     }
 
@@ -54,7 +53,8 @@ export default class CartService {
             const cartData = {sessionId, outletId: body.outletId, subtotal: body.subtotal}
             const updatedCart = await this.cartStore.upsert(cartId, cartData);
             if (updatedCart.sessionId === sessionId) {
-                return {result: updatedCart};
+                const result = this._formatCartObject(updatedCart);
+                return {result};
             }
         }
         return ctx.throw(400);
@@ -77,9 +77,27 @@ export default class CartService {
             }
             await this.cartStore.upsertCartItem(data);
             const cart = await this.cartStore.get(cartId, sessionId);
-            return {result: cart};
+
+            const result = this._formatCartObject(cart);
+
+            return {result};
         }
         return ctx.throw(400);
+    }
+
+    _formatCartObject(cart) {
+        let result = cart;
+        if (cart['items']) {
+            result = cart.items.map((item) => {
+                const newItem = item['dataValues'];
+                delete newItem['cartItem'];
+                return {
+                    ...newItem,
+                    ...item['cartItem']['dataValues']
+                }
+            })
+        }
+        return result;
     }
 
 }

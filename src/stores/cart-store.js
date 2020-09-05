@@ -7,6 +7,30 @@ const createCartStore = (logger, db) => {
     const Cart = db.Carts;
     const CartItem = db.CartItems;
 
+    const options = {
+        include: [
+            {
+                model: db.Products,
+                as: 'items',
+                attributes: {
+                    exclude: ['id']
+                },
+                through: {
+                    as: 'cartItem',
+                    attributes: {
+                        exclude: ['id', 'cartId', 'productId']
+                    },
+
+                }
+            }
+        ],
+        attributes: {
+            exclude: [
+                'cartItemId', 'outletId', 'sessionId', 'createdOn', 'updatedOn',
+            ]
+        },
+    };
+
     return {
         /**
          * Retrieves all cart entities from the database.
@@ -24,11 +48,13 @@ const createCartStore = (logger, db) => {
         /**
          * Retrieve a specific cart entity from the database via its private key.
          * @param id integer identifier matching the entity Primary Key
+         * @param sessionId
          * @returns {Promise<Carts>}
          */
         async get(id, sessionId) {
             logger.debug(`Getting cart with id ${id}`)
             const foundCart = await Cart.findByPk(id, {
+                ...options,
                 where: {
                     sessionId
                 }
@@ -36,7 +62,7 @@ const createCartStore = (logger, db) => {
             if (!foundCart) {
                 return null
             }
-            return foundCart;
+            return foundCart.dataValues;
         },
 
         /**
@@ -48,12 +74,17 @@ const createCartStore = (logger, db) => {
          */
         async upsert(cartId, cartData) {
             logger.debug(`Creating or updating cart`)
+            const values = cartData;
+            if (cartId)
+                values['id'] = cartId;
+
             const result =  await Cart.upsert(
                 {
-                    id: cartId,
+                    ...values,
                     ...cartData
                 },
                 {
+                    ...options,
                     returning: true
                 }
             )
@@ -76,6 +107,7 @@ const createCartStore = (logger, db) => {
             const result =  await CartItem.upsert(
                 data,
                 {
+                    ...options,
                     returning: true
                 }
             )

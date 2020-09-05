@@ -10,17 +10,17 @@ export default class Carts extends Model {
 			allowNull: false,
 			primaryKey: true
 		},
-		userId: {
+		sessionId: {
 			type: DataTypes.UUIDV4,
 			allowNull: false,
 			references: {
 				model: {
-					tableName: 'accounts',
+					tableName: 'sessions',
 					schema: 'public'
 				},
-				key: 'user_id'
+				key: 'id'
 			},
-			field: 'user_id'
+			field: 'session_id'
 		},
 		outletId: {
 			type: DataTypes.INTEGER,

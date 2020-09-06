@@ -10,6 +10,7 @@ const api = cartService => ({
     getCart: async ctx => ctx.ok(await cartService.get(ctx)),
     createOrUpdateCart: async ctx => ctx.ok(await cartService.upsert(ctx)),
     createOrUpdateCartItem: async ctx => ctx.ok(await cartService.upsertCartItem(ctx)),
+    deleteCartItems: async ctx => ctx.ok(await cartService.deleteCartItems(ctx)),
 });
 
 /**
@@ -30,4 +31,5 @@ export default createController(api)
     .post('/:id/items', 'createOrUpdateCartItem', {
         // Maps `POST /todos` to the `createTodo` function on the returned object from `API`
         before: [bodyParser()] // Runs the bodyParser just for this endpoint
-    });
+    })
+    .delete('/:id/items', 'deleteCartItems');

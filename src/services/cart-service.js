@@ -68,18 +68,48 @@ export default class CartService {
         const cartId = ctx.params.id;
         const body = ctx.request.body;
         assertSessionId(sessionId)
-        if (body) {
-            const data = {
-                cartId: cartId,
-                productId: body.productId,
-                quantity: body.quantity,
-                total: body.total,
+
+        if (body && body['items']) {
+
+            const data = body['items'].map((item) => {
+                return {
+                    cartId: cartId,
+                    productId: item.productId,
+                    quantity: item.quantity,
+                    total: item.total,
+                }
+            });
+
+            if (data.length === 1) {
+                await this.cartStore.upsertCartItem(data[0]);
+            } else if (data.length > 1) {
+                await this.cartStore.bulkUpsertCartItems(data);
             }
-            await this.cartStore.upsertCartItem(data);
+
             const cart = await this.cartStore.get(cartId, sessionId);
 
             const result = this._formatCartObject(cart);
 
+            return {result};
+        }
+        return ctx.throw(400);
+    }
+
+    async deleteCartItems(ctx) {
+        const sessionId = ctx.session.id;
+        const cartId = ctx.params.id;
+        const body = ctx.request.body;
+        assertSessionId(sessionId)
+
+        if (body && body['items']) {
+            const data = body['items'].map((item) => {
+                return {
+                    cartId: cartId,
+                    productId: item.productId,
+                }
+            });
+
+            const result = await this.cartStore.bulkDeleteCartItems(data);
             return {result};
         }
         return ctx.throw(400);

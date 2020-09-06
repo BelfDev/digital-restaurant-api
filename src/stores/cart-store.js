@@ -99,13 +99,13 @@ const createCartStore = (logger, db) => {
         /**
          * Create or update a cart item entity
          * If an id is provided, this function will update an existing entry
-         * @param data object used to update the cart values
          * @returns {Promise<[Carts, (boolean | null)]|*>}
+         * @param item
          */
-        async upsertCartItem(data) {
-            logger.debug(`Creating or updating cart item`)
+        async upsertCartItem(item) {
+            logger.debug(`Creating or updating cart item`);
             const result =  await CartItem.upsert(
-                data,
+                item,
                 {
                     ...options,
                     returning: true
@@ -118,6 +118,43 @@ const createCartStore = (logger, db) => {
                 return result;
             }
         },
+
+
+        async bulkUpsertCartItems(items) {
+            logger.debug(`Creating or updating cart items in bulk`);
+            const result =  await CartItem.bulkCreate(
+                items,
+                {
+                    updateOnDuplicate: ['quantity', 'total', 'status']
+                }
+            )
+            if (result) {
+                logger.debug(`Cart items updated!`);
+            }
+            return result;
+        },
+
+        /**
+         * Deletes cart items
+         */
+        async bulkDeleteCartItems(items) {
+            logger.debug(`Deleting cart items in bulk`);
+            const cartId = items[0].cartId;
+            const productIds = items.map((item) => item.productId);
+            const result = await CartItem.destroy(
+                {
+                    where: {
+                        cartId,
+                        productId: productIds
+                    }
+                }
+            )
+            if (result) {
+                logger.debug(`Cart items deleted!`);
+            }
+            return result;
+        },
+
     };
 };
 

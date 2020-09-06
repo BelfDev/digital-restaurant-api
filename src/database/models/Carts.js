@@ -39,6 +39,11 @@ export default class Carts extends Model {
 			allowNull: false,
 			defaultValue: "0"
 		},
+		status: {
+			type: DataTypes.ENUM("NOT_ORDERED","ORDERED"),
+			allowNull: false,
+			defaultValue: "NOT_ORDERED"
+		},
 		createdOn: {
 			type: DataTypes.DATE,
 			allowNull: false,

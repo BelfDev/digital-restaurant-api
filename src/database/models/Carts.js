@@ -36,7 +36,8 @@ export default class Carts extends Model {
 		},
 		subtotal: {
 			type: DataTypes.DOUBLE,
-			allowNull: false
+			allowNull: false,
+			defaultValue: "0"
 		},
 		createdOn: {
 			type: DataTypes.DATE,

@@ -50,7 +50,7 @@ export default class CartService {
         const cartId = ctx.params.id;
         const body = ctx.request.body;
         if (sessionId && body) {
-            const cartData = {sessionId, outletId: body.outletId, subtotal: body.subtotal}
+            const cartData = {sessionId, outletId: body.outletId}
             const updatedCart = await this.cartStore.upsert(cartId, cartData);
             if (updatedCart.sessionId === sessionId) {
                 const result = this._formatCartObject(updatedCart);
@@ -76,15 +76,10 @@ export default class CartService {
                     cartId: cartId,
                     productId: item.productId,
                     quantity: item.quantity,
-                    total: item.total,
                 }
             });
 
-            if (data.length === 1) {
-                await this.cartStore.upsertCartItem(data[0]);
-            } else if (data.length > 1) {
-                await this.cartStore.bulkUpsertCartItems(data);
-            }
+            await this.cartStore.bulkUpsertCartItems(data);
 
             const cart = await this.cartStore.get(cartId, sessionId);
 

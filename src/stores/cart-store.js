@@ -97,29 +97,10 @@ const createCartStore = (logger, db) => {
         },
 
         /**
-         * Create or update a cart item entity
-         * If an id is provided, this function will update an existing entry
-         * @returns {Promise<[Carts, (boolean | null)]|*>}
-         * @param item
+         * Create or update cart items
+         * @param items
+         * @returns {Promise<CartItems[]>}
          */
-        async upsertCartItem(item) {
-            logger.debug(`Creating or updating cart item`);
-            const result =  await CartItem.upsert(
-                item,
-                {
-                    ...options,
-                    returning: true
-                }
-            )
-            if (result && result.length > 0) {
-                logger.debug(`Updated cart`, result)
-                return result[0].dataValues;
-            } else {
-                return result;
-            }
-        },
-
-
         async bulkUpsertCartItems(items) {
             logger.debug(`Creating or updating cart items in bulk`);
             const result =  await CartItem.bulkCreate(
@@ -135,7 +116,9 @@ const createCartStore = (logger, db) => {
         },
 
         /**
-         * Deletes cart items
+         * Delete cart items
+         * @param items
+         * @returns {Promise<number>}
          */
         async bulkDeleteCartItems(items) {
             logger.debug(`Deleting cart items in bulk`);

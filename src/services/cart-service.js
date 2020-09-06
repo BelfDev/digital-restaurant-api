@@ -13,17 +13,18 @@ export default class CartService {
         this.cartStore = cartStore;
     }
 
-    /**
-     * Fetch all carts according to the given parameter.
-     * @param ctx koa's context object
-     * @returns {Promise<{result: Carts[]}>}
-     */
-    async find(ctx) {
-        const sessionId = ctx.session.id;
-        assertSessionId(sessionId)
-        const result = await this.cartStore.find(sessionId);
-        return {result};
-    }
+    // TODO: Used internally by the backend
+    // /**
+    //  * Fetch all carts according to the given parameter.
+    //  * @param ctx koa's context object
+    //  * @returns {Promise<{result: Carts[]}>}
+    //  */
+    // async find(ctx) {
+    //     const sessionId = ctx.session.id;
+    //     assertSessionId(sessionId)
+    //     const result = await this.cartStore.find(sessionId);
+    //     return {result};
+    // }
 
     /**
      * Searches for a specific cart by the given identifier.
@@ -52,10 +53,16 @@ export default class CartService {
         if (sessionId && body) {
             const cartData = {sessionId, outletId: body.outletId}
             const updatedCart = await this.cartStore.upsert(cartId, cartData);
-            if (updatedCart.sessionId === sessionId) {
-                const result = this._formatCartObject(updatedCart);
-                return {result};
+            let result = updatedCart;
+            if (result) {
+                result = {
+                    id: updatedCart.id,
+                    subtotal: updatedCart.subtotal,
+                    status: updatedCart.status,
+                    outletId: updatedCart.outletId
+                }
             }
+            return {result: result};
         }
         return ctx.throw(400);
     }

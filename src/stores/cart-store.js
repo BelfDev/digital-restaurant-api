@@ -41,7 +41,7 @@ const createCartStore = (logger, db) => {
             return await Cart.findAll({
                 where: {
                     sessionId
-                }
+                },
             });
         },
 
@@ -84,13 +84,12 @@ const createCartStore = (logger, db) => {
                     ...cartData
                 },
                 {
-                    ...options,
-                    returning: true
-                }
+                    returning: true,
+                },
             )
             if (result && result.length > 0) {
                 logger.debug(`Updated cart`, result)
-                return result[0].dataValues;
+                return result[0];
             } else {
                 return result;
             }

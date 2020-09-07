@@ -2,21 +2,21 @@
 
 import { Model } from 'sequelize';
 
-export default class SessionCarts extends Model {
+export default class OrderCarts extends Model {
 	static init(sequelize, DataTypes) {
 	super.init({
-		sessionId: {
-			type: DataTypes.UUIDV4,
+		orderId: {
+			type: DataTypes.INTEGER,
 			allowNull: false,
 			primaryKey: true,
 			references: {
 				model: {
-					tableName: 'sessions',
+					tableName: 'orders',
 					schema: 'public'
 				},
 				key: 'id'
 			},
-			field: 'session_id'
+			field: 'order_id'
 		},
 		cartId: {
 			type: DataTypes.INTEGER,
@@ -32,9 +32,9 @@ export default class SessionCarts extends Model {
 		}
 	}, {
 		sequelize,
-		tableName: 'session_carts',
+		tableName: 'order_carts',
 		schema: 'public'
 	});
-	return SessionCarts;
+	return OrderCarts;
 	}
 }

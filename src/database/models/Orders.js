@@ -10,30 +10,6 @@ export default class Orders extends Model {
 			allowNull: false,
 			primaryKey: true
 		},
-		cartId: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			references: {
-				model: {
-					tableName: 'carts',
-					schema: 'public'
-				},
-				key: 'id'
-			},
-			field: 'cart_id'
-		},
-		userId: {
-			type: DataTypes.UUIDV4,
-			allowNull: false,
-			references: {
-				model: {
-					tableName: 'accounts',
-					schema: 'public'
-				},
-				key: 'user_id'
-			},
-			field: 'user_id'
-		},
 		subtotal: {
 			type: DataTypes.DOUBLE,
 			allowNull: false

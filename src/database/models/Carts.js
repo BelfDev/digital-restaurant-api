@@ -37,7 +37,7 @@ export default class Carts extends Model {
 		subtotal: {
 			type: DataTypes.DOUBLE,
 			allowNull: false,
-			defaultValue: "0"
+			defaultValue: "0.0"
 		},
 		status: {
 			type: DataTypes.ENUM("NOT_ORDERED","ORDERED"),

@@ -12,7 +12,8 @@ export default class Orders extends Model {
 		},
 		subtotal: {
 			type: DataTypes.DOUBLE,
-			allowNull: false
+			allowNull: false,
+			defaultValue: "0.0"
 		},
 		status: {
 			type: DataTypes.ENUM("OPEN","PAID"),

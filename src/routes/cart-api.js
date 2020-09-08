@@ -6,7 +6,7 @@ import bodyParser from "koa-bodyparser";
  * This file contains functions that map HTTP calls to the CartService.
  */
 const api = cartService => ({
-    findCarts: async ctx => ctx.ok(await cartService.find(ctx)),
+    // findCarts: async ctx => ctx.ok(await cartService.find(ctx)),
     getCart: async ctx => ctx.ok(await cartService.get(ctx)),
     createOrUpdateCart: async ctx => ctx.ok(await cartService.upsert(ctx)),
     createOrUpdateCartItem: async ctx => ctx.ok(await cartService.upsertCartItem(ctx)),
@@ -18,6 +18,7 @@ const api = cartService => ({
  */
 export default createController(api)
     .prefix('/carts')
+    // .get('', 'findCarts')
     .get('/:id', 'getCart')
     .post('', 'createOrUpdateCart', {
         // Maps `POST /todos` to the `createTodo` function on the returned object from `API`

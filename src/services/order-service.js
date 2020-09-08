@@ -7,7 +7,7 @@ const assertCartId = BadRequest.makeAssert('No cartId given')
 
 /**
  * Order service layer.
- * Gets a cuisine store injected.
+ * Gets a order store injected.
  */
 export default class OrderService {
     constructor(orderStore) {
@@ -37,6 +37,29 @@ export default class OrderService {
             NotFound.makeAssert(`Order with id "${id}" not found`)
         );
         return {result};
+    }
+
+    async updateOrder(ctx) {
+        const sessionId = ctx.session.id;
+        const body = ctx.request.body;
+        let orderId = ctx.params.id;
+
+        assertSessionId(sessionId);
+
+        if (orderId && body['status']) {
+
+            return await Orders.update({
+                status: 'PAID'
+            }, {
+                where: {
+                    id: orderId
+                }
+            });
+
+        }
+
+        return ctx.throw(400);
+
     }
 
     /**

@@ -8,14 +8,14 @@ import bodyParser from "koa-bodyparser";
 const api = paymentService => ({
     findPayments: async ctx => ctx.ok(await paymentService.find(ctx.query)),
     getPayment: async ctx => ctx.ok(await paymentService.get(ctx.params.id)),
-    createPayment: async ctx => ctx.ok(await paymentService.createPayment(ctx)),
+    createPayment: async ctx => ctx.ok(await paymentService.create(ctx)),
 });
 
 /**
  * Maps routes to method calls on the API controller (above).
  */
 export default createController(api)
-    .prefix('/orders')
+    .prefix('/payments')
     .get('', 'findPayments')
     .get('/:id', 'getPayment')
     .post('/', 'createPayment', {

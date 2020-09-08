@@ -1,6 +1,10 @@
-
 function withAssociations(sequelize) {
-    const {Cuisines, Images, Outlets, Locations, Products, Categories, Ingredients, FeaturedOutlets, Carts, Sessions, Orders} = sequelize.models;
+    const {
+        Cuisines, Images, Outlets,
+        Locations, Products, Categories,
+        Ingredients, FeaturedOutlets, Carts,
+        Sessions, Orders, Payments, PaymentMethods,
+    } = sequelize.models;
 
     // Cuisine relationship
     Images.hasMany(Cuisines, {
@@ -88,6 +92,29 @@ function withAssociations(sequelize) {
     Orders.belongsToMany(Carts, {through: 'OrderCarts', foreignKey: 'orderId', as: 'carts'})
     Carts.belongsToMany(Orders, {through: 'OrderCarts', foreignKey: 'cartId'})
 
+    // Payment relationship
+    Sessions.hasMany(Payments, {
+        foreignKey: 'sessionId',
+    });
+    Payments.belongsTo(Sessions, {
+        foreignKey: 'sessionId',
+        as: 'session'
+    });
+    PaymentMethods.hasMany(Payments, {
+        foreignKey: 'paymentMethodId',
+    });
+    Payments.belongsTo(PaymentMethods, {
+        foreignKey: 'paymentMethodId',
+        as: 'paymentMethod'
+    });
+    Orders.hasMany(Payments, {
+        foreignKey: 'orderId',
+    });
+    Payments.belongsTo(Orders, {
+        foreignKey: 'orderId',
+        as: 'order'
+    });
+    
 }
 
 module.exports = {withAssociations};

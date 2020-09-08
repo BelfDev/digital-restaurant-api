@@ -17,19 +17,17 @@ export default class PaymentService {
     /**
      * Fetch all payments according to the given parameter.
      * @param params optional parameters to filter the result.
-     * @returns {Promise<{result: Cuisines[]}>}
+     * @returns {Promise<{result: Payments[]}>}
      */
     async find(params) {
         const result = await this.paymentStore.find();
         return {result};
     }
 
-    ø
-
     /**
      * Searches for a specific payment by the given identifier.
      * @param id integer identifier
-     * @returns {Promise<{result: Cuisines}>}
+     * @returns {Promise<{result: Payments}>}
      */
     async get(id) {
         assertId(id)
@@ -37,6 +35,37 @@ export default class PaymentService {
             NotFound.makeAssert(`Payment with id "${id}" not found`)
         );
         return {result};
+    }
+
+
+    async create(ctx) {
+        const sessionId = ctx.session.id;
+        const body = ctx.request.body;
+
+        assertSessionId(sessionId);
+
+        if (body['orderId'] && body['paymentMethodId']) {
+
+            const data = {
+                sessionId,
+                orderId: body.orderId,
+                paymentMethodId: body.paymentMethodId,
+            }
+
+            const result = await this.paymentStore.create(data);
+            if (result) {
+                return {
+                    result: {
+                        id: result.id,
+                        total: result.total,
+                        orderId: result.orderId,
+                        paymentMethodId: result.paymentMethodId
+                    }
+                }
+            }
+        }
+
+        return ctx.throw(400);
     }
 
 }

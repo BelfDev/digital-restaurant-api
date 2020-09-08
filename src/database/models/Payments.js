@@ -8,7 +8,8 @@ export default class Payments extends Model {
 		id: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
-			primaryKey: true
+			primaryKey: true,
+			autoIncrement: true
 		},
 		paymentMethodId: {
 			type: DataTypes.INTEGER,
@@ -37,6 +38,7 @@ export default class Payments extends Model {
 		orderId: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
+			unique: true,
 			references: {
 				model: {
 					tableName: 'orders',
@@ -48,7 +50,8 @@ export default class Payments extends Model {
 		},
 		total: {
 			type: DataTypes.DOUBLE,
-			allowNull: false
+			allowNull: false,
+			defaultValue: "0.0"
 		},
 		createdOn: {
 			type: DataTypes.DATE,

@@ -34,9 +34,9 @@ const createPaymentStore = (logger, db) => {
          * Creates a single payment
          * @returns {Promise<Payments>}
          */
-        async create() {
+        async create(data) {
             logger.debug(`Creating new payment`);
-            const result = await Payment.create();
+            const result = await Payment.create(data);
             if (result) {
                 logger.debug(`Payment created!`);
             }

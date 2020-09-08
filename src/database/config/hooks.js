@@ -1,6 +1,6 @@
 
 function withHooks(sequelize) {
-    const {Accounts, Products, CartItems, Carts, OrderCarts, Orders} = sequelize.models;
+    const {Accounts, Products, CartItems, Carts, OrderCarts, Orders, Payments} = sequelize.models;
 
     // Account password hook
     Accounts.beforeCreate(async (account, options) => {
@@ -108,6 +108,13 @@ function withHooks(sequelize) {
         const reducer = (accumulator, currentValue) => accumulator + currentValue;
         order.subtotal = allTotals.reduce(reducer);
         await order.save();
+    });
+
+    Payments.beforeCreate(async (payment) => {
+        const order = await Orders.findByPk(payment.orderId);
+        order.status = "PAID";
+        await order.save();
+        payment.total = order.subtotal;
     });
 
 }

@@ -1,5 +1,6 @@
+
 function withHooks(sequelize) {
-    const {Accounts, Products, CartItems, Carts} = sequelize.models;
+    const {Accounts, Products, CartItems, Carts, OrderCarts, Orders} = sequelize.models;
 
     // Account password hook
     Accounts.beforeCreate(async (account, options) => {
@@ -59,6 +60,54 @@ function withHooks(sequelize) {
         const reducer = (accumulator, currentValue) => accumulator + currentValue;
         cart.subtotal = allTotals.reduce(reducer);
         await cart.save();
+    });
+
+    // Updating cart statuses
+    OrderCarts.beforeBulkCreate(async (orderCart) => {
+        const cartId = orderCart[0].cartId;
+        await Carts.update(
+            {
+                status: 'ORDERED'
+            },
+            {
+                where: {
+                    id: cartId
+                },
+            },
+        );
+        await CartItems.update(
+            {
+                status: 'PREPARING'
+            }, {
+                where: {
+                    cartId: cartId
+                }
+            }
+        );
+    })
+
+    OrderCarts.afterBulkCreate(async (orderCart) => {
+        const orderId = orderCart[0].orderId;
+
+        const order = await Orders.findByPk(orderId, {
+            include: [
+                {
+                    model: Carts,
+                    as: 'carts',
+                    through: {attributes: []},
+                },
+            ],
+            attributes: {
+                exclude: [
+                    'createdOn',
+                    'updatedOn'
+                ]
+            },
+        });
+        const allTotals = order.carts.map((cart) => cart.subtotal);
+        const reducer = (accumulator, currentValue) => accumulator + currentValue;
+        order.subtotal = allTotals.reduce(reducer);
+        await order.save();
     });
 
 }

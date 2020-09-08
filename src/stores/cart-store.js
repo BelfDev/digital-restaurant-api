@@ -12,15 +12,11 @@ const createCartStore = (logger, db) => {
             {
                 model: db.Products,
                 as: 'items',
-                attributes: {
-                    exclude: ['id']
-                },
                 through: {
                     as: 'cartItem',
                     attributes: {
                         exclude: ['id', 'cartId', 'productId']
                     },
-
                 }
             }
         ],
@@ -81,7 +77,6 @@ const createCartStore = (logger, db) => {
             const result =  await Cart.upsert(
                 {
                     ...values,
-                    ...cartData
                 },
                 {
                     returning: true,

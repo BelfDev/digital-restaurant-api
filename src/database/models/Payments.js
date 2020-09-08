@@ -5,11 +5,10 @@ import { Model } from 'sequelize';
 export default class Payments extends Model {
 	static init(sequelize, DataTypes) {
 	super.init({
-		paymentId: {
+		id: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
-			primaryKey: true,
-			field: 'payment_id'
+			primaryKey: true
 		},
 		paymentMethodId: {
 			type: DataTypes.INTEGER,
@@ -23,17 +22,29 @@ export default class Payments extends Model {
 			},
 			field: 'payment_method_id'
 		},
-		userId: {
+		sessionId: {
 			type: DataTypes.UUIDV4,
 			allowNull: false,
 			references: {
 				model: {
-					tableName: 'accounts',
+					tableName: 'sessions',
 					schema: 'public'
 				},
-				key: 'user_id'
+				key: 'id'
 			},
-			field: 'user_id'
+			field: 'session_id'
+		},
+		orderId: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			references: {
+				model: {
+					tableName: 'orders',
+					schema: 'public'
+				},
+				key: 'id'
+			},
+			field: 'order_id'
 		},
 		total: {
 			type: DataTypes.DOUBLE,

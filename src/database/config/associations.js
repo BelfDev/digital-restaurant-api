@@ -1,6 +1,6 @@
 
 function withAssociations(sequelize) {
-    const {Cuisines, Images, Outlets, Locations, Products, Categories, Ingredients, FeaturedOutlets, Carts, Sessions, CartItems} = sequelize.models;
+    const {Cuisines, Images, Outlets, Locations, Products, Categories, Ingredients, FeaturedOutlets, Carts, Sessions, Orders} = sequelize.models;
 
     // Cuisine relationship
     Images.hasMany(Cuisines, {
@@ -75,11 +75,18 @@ function withAssociations(sequelize) {
     });
 
     // Cart relationship
-    Sessions.belongsToMany(Images, {through: 'SessionCarts', foreignKey: 'sessionId', as: 'carts'})
-    Carts.belongsToMany(Products, {through: 'SessionCarts', foreignKey: 'cartId'})
+    Sessions.belongsToMany(Carts, {through: 'SessionCarts', foreignKey: 'sessionId', as: 'carts'})
+    Carts.belongsToMany(Sessions, {through: 'SessionCarts', foreignKey: 'cartId'})
 
     Carts.belongsToMany(Products, {through: 'CartItems', foreignKey: 'cartId', as: 'items'})
     Products.belongsToMany(Carts, {through: 'CartItems', foreignKey: 'productId'})
+
+    // Order relationship
+    Sessions.belongsToMany(Orders, {through: 'SessionCarts', foreignKey: 'sessionId', as: 'orders'})
+    Orders.belongsToMany(Products, {through: 'SessionCarts', foreignKey: 'orderId'})
+
+    Orders.belongsToMany(Carts, {through: 'OrderCarts', foreignKey: 'orderId', as: 'carts'})
+    Carts.belongsToMany(Orders, {through: 'OrderCarts', foreignKey: 'cartId'})
 
 }
 

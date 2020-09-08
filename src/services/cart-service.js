@@ -13,7 +13,7 @@ export default class CartService {
         this.cartStore = cartStore;
     }
 
-    // TODO: Used internally by the backend
+    // // TODO: Used internally by the backend
     // /**
     //  * Fetch all carts according to the given parameter.
     //  * @param ctx koa's context object
@@ -120,7 +120,7 @@ export default class CartService {
     _formatCartObject(cart) {
         let result = cart;
         if (cart['items']) {
-            result = cart.items.map((item) => {
+            cart.items = cart.items.map((item) => {
                 const newItem = item['dataValues'];
                 delete newItem['cartItem'];
                 return {

@@ -15,6 +15,16 @@ const createOrderStore = (logger, db) => {
                     {
                         model: db.Products,
                         as: 'items',
+                        include: [
+                            {
+                                model: db.Images,
+                                as: 'images',
+                                attributes: {
+                                    exclude: ['id']
+                                },
+                                through: {attributes: []}
+                            }
+                        ],
                         through: {
                             as: 'cartItem',
                             attributes: {

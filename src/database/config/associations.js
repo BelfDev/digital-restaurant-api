@@ -114,7 +114,7 @@ function withAssociations(sequelize) {
         foreignKey: 'orderId',
         as: 'order'
     });
-    
+
 }
 
 module.exports = {withAssociations};

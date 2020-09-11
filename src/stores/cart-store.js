@@ -17,7 +17,17 @@ const createCartStore = (logger, db) => {
                     attributes: {
                         exclude: ['id', 'cartId', 'productId']
                     },
-                }
+                },
+                include: [
+                    {
+                        model: db.Images,
+                        as: 'images',
+                        attributes: {
+                            exclude: ['id']
+                        },
+                        through: {attributes: []}
+                    },
+                ]
             }
         ],
         attributes: {
@@ -74,7 +84,7 @@ const createCartStore = (logger, db) => {
             if (cartId)
                 values['id'] = cartId;
 
-            const result =  await Cart.upsert(
+            const result = await Cart.upsert(
                 {
                     ...values,
                 },
@@ -97,7 +107,7 @@ const createCartStore = (logger, db) => {
          */
         async bulkUpsertCartItems(items) {
             logger.debug(`Creating or updating cart items in bulk`);
-            const result =  await CartItem.bulkCreate(
+            const result = await CartItem.bulkCreate(
                 items,
                 {
                     updateOnDuplicate: ['quantity', 'total', 'status']

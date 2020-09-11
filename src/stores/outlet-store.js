@@ -12,10 +12,24 @@ const createOutletStore = (logger, db) => {
         }
     } : {};
 
+    const buildCuisineCondition = (cuisine) => cuisine ? {
+        where: {
+            title: cuisine
+        }
+    } : {};
+
     const getOutletOptions = (params) => {
-        let locationCondition;
-        if (params)
-            locationCondition = buildLocationCondition(params.city);
+        let locationCondition = {};
+        let cuisineCondition = {};
+        if (params) {
+            if (params.city) {
+                locationCondition = buildLocationCondition(params.city);
+            }
+            if (params.cuisine) {
+                cuisineCondition = buildCuisineCondition(params.cuisine);
+            }
+        }
+
         return {
             include: [
                 {
@@ -24,6 +38,7 @@ const createOutletStore = (logger, db) => {
                     attributes: {
                         exclude: ['id', 'imageId']
                     },
+                    ...cuisineCondition,
                 },
                 {
                     model: db.Locations,

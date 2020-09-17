@@ -28,7 +28,13 @@ export default class AccountService {
                     const {userId, email, createdOn} = userData;
                     const body = {userId, email, createdOn}
                     const token = jwt.sign({user: body}, 'top_secret');
-                    ctx.body = {token};
+                    ctx.body = {
+                        result: {
+                            userId,
+                            email,
+                            token
+                        }
+                    };
                 });
         })(ctx)
     }
@@ -42,13 +48,7 @@ export default class AccountService {
             } else {
                 const {userId, email, createdOn} = user.dataValues;
                 this.logger.debug('Created new user account: ', email);
-                ctx.body = {
-                    user: {
-                        userId,
-                        email,
-                        createdOn
-                    }
-                }
+                return this.login(ctx);
             }
         })(ctx)
     }

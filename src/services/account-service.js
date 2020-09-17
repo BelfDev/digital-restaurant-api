@@ -23,6 +23,7 @@ export default class AccountService {
             }
 
             const userData = user.dataValues;
+            this.logger.debug('Logging user');
             return ctx.login(user)
                 .then(() => {
                     const {userId, email, createdOn} = userData;
@@ -37,6 +38,11 @@ export default class AccountService {
                     };
                 });
         })(ctx)
+    }
+
+    async logout(ctx) {
+        this.logger.debug('Logging out user', ctx.state.user);
+        return ctx.logout();
     }
 
     async create(ctx) {

@@ -4,6 +4,7 @@ const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 const config = require('../config/config');
 const { withAssociations } = require('../config/associations');
+const { withHooks } = require('../config/hooks');
 const db = {};
 
 let sequelize;
@@ -33,5 +34,8 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 withAssociations(sequelize);
+withHooks(sequelize);
+// Workaround to forward doubles as Float instead of String
+Sequelize.postgres.DECIMAL.parse = function (value) { return parseFloat(value); };
 
 module.exports = db;

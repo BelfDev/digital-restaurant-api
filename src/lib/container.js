@@ -1,6 +1,7 @@
-import {asValue, createContainer, InjectionMode, Lifetime} from 'awilix'
-import {logger} from './logger'
-import db from '../database/models'
+import {asValue, createContainer, InjectionMode, Lifetime} from 'awilix';
+import {logger} from './logger';
+import db from '../database/models';
+import passport from 'koa-passport';
 
 /**
  * Loads modules with Awilix dependency injection library.
@@ -30,6 +31,8 @@ export function configureContainer() {
             // Provide previously constructed logger as it is.
             logger: asValue(logger),
             // Inject the database
-            db: asValue(db)
+            db: asValue(db),
+            // Inject authenticator
+            passport: asValue(passport)
         })
 }

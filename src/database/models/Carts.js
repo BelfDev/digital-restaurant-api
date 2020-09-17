@@ -10,17 +10,17 @@ export default class Carts extends Model {
 			allowNull: false,
 			primaryKey: true
 		},
-		userId: {
-			type: DataTypes.INTEGER,
+		sessionId: {
+			type: DataTypes.UUIDV4,
 			allowNull: false,
 			references: {
 				model: {
-					tableName: 'accounts',
+					tableName: 'sessions',
 					schema: 'public'
 				},
-				key: 'user_id'
+				key: 'id'
 			},
-			field: 'user_id'
+			field: 'session_id'
 		},
 		outletId: {
 			type: DataTypes.INTEGER,
@@ -36,7 +36,13 @@ export default class Carts extends Model {
 		},
 		subtotal: {
 			type: DataTypes.DOUBLE,
-			allowNull: false
+			allowNull: false,
+			defaultValue: "0.0"
+		},
+		status: {
+			type: DataTypes.ENUM("NOT_ORDERED","ORDERED"),
+			allowNull: false,
+			defaultValue: "NOT_ORDERED"
 		},
 		createdOn: {
 			type: DataTypes.DATE,

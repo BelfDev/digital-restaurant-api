@@ -8,35 +8,13 @@ export default class Orders extends Model {
 		id: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
-			primaryKey: true
-		},
-		cartId: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			references: {
-				model: {
-					tableName: 'carts',
-					schema: 'public'
-				},
-				key: 'id'
-			},
-			field: 'cart_id'
-		},
-		userId: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			references: {
-				model: {
-					tableName: 'accounts',
-					schema: 'public'
-				},
-				key: 'user_id'
-			},
-			field: 'user_id'
+			primaryKey: true,
+			autoIncrement: true,
 		},
 		subtotal: {
 			type: DataTypes.DOUBLE,
-			allowNull: false
+			allowNull: false,
+			defaultValue: "0.0"
 		},
 		status: {
 			type: DataTypes.ENUM("OPEN","PAID"),

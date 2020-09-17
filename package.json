@@ -17,7 +17,7 @@
     "test": "cross-env NODE_ENV=test jest",
     "cover": "yarn run test -- --coverage",
     "lint": "eslint --fix src && prettier --write \"src/**/*.js\"",
-    "generate-models": "node ./node_modules/sequelize-auto/bin/sequelize-auto -o \"./src/database/models\" -d digital_restaurant -h localhost -u postgres -p 5432 -x postgres -e postgres -C ut -l esm -f ut -c \"src/database/config/db-options\" -s public",
+    "generate-models": "node ./node_modules/sequelize-auto/bin/sequelize-auto -o \"./src/database/models\" -d digital_restaurant -h localhost -u postgres -p 5432 -x postgres -e postgres -C ut -l esm -f ut -c \"src/database/config/db-options\" -s public --cf p --cm p --cp c ",
     "precommit": "lint-staged"
   },
   "dependencies": {
@@ -27,17 +27,22 @@
     "axios": "^0.19.2",
     "bristol": "^0.4.0",
     "fejl": "^2.5.1",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
     "koa-compress": "^5.0.1",
+    "koa-passport": "^4.1.3",
     "koa-respond": "^2.1.0",
     "koa-router": "^9.1.0",
     "lodash": "^4.17.19",
+    "ms": "^2.1.2",
     "palin": "^2.3.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
     "pg": "^8.3.0",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.3",
-    "sequelize-auto": "^0.5.3",
+    "sequelize-auto": "^0.5.4",
     "yenv": "^2.1.1"
   },
   "devDependencies": {

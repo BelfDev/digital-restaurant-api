@@ -2,24 +2,26 @@
 
 import { Model } from 'sequelize';
 
-export default class Accounts extends Model {
+export default class FeaturedOutlets extends Model {
 	static init(sequelize, DataTypes) {
 	super.init({
-		userId: {
-			type: DataTypes.UUIDV4,
+		id: {
+			type: DataTypes.INTEGER,
 			allowNull: false,
-			defaultValue: sequelize.fn('uuid_generate_v4'),
-			primaryKey: true,
-			field: 'user_id'
+			primaryKey: true
 		},
-		email: {
-			type: DataTypes.STRING,
+		outletId: {
+			type: DataTypes.INTEGER,
 			allowNull: false,
-			unique: true
-		},
-		password: {
-			type: DataTypes.CITEXT,
-			allowNull: false
+			references: {
+				model: {
+					tableName: 'outlets',
+					schema: 'public'
+				},
+				key: 'id'
+			},
+			unique: true,
+			field: 'outlet_id'
 		},
 		createdOn: {
 			type: DataTypes.DATE,
@@ -32,17 +34,12 @@ export default class Accounts extends Model {
 			allowNull: false,
 			defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
 			field: 'updated_on'
-		},
-		lastLogin: {
-			type: DataTypes.DATE,
-			allowNull: true,
-			field: 'last_login'
 		}
 	}, {
 		sequelize,
-		tableName: 'accounts',
+		tableName: 'featured_outlets',
 		schema: 'public'
 	});
-	return Accounts;
+	return FeaturedOutlets;
 	}
 }

@@ -2,25 +2,13 @@
 
 import { Model } from 'sequelize';
 
-export default class PaymentOrders extends Model {
+export default class OrderCarts extends Model {
 	static init(sequelize, DataTypes) {
 	super.init({
-		paymentId: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			primaryKey: true,
-			references: {
-				model: {
-					tableName: 'payments',
-					schema: 'public'
-				},
-				key: 'payment_id'
-			},
-			field: 'payment_id'
-		},
 		orderId: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
+			primaryKey: true,
 			references: {
 				model: {
 					tableName: 'orders',
@@ -29,12 +17,24 @@ export default class PaymentOrders extends Model {
 				key: 'id'
 			},
 			field: 'order_id'
+		},
+		cartId: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			references: {
+				model: {
+					tableName: 'carts',
+					schema: 'public'
+				},
+				key: 'id'
+			},
+			field: 'cart_id'
 		}
 	}, {
 		sequelize,
-		tableName: 'payment_orders',
+		tableName: 'order_carts',
 		schema: 'public'
 	});
-	return PaymentOrders;
+	return OrderCarts;
 	}
 }

@@ -2,26 +2,25 @@
 
 import { Model } from 'sequelize';
 
-export default class CartItems extends Model {
+export default class FeaturedOutletProducts extends Model {
 	static init(sequelize, DataTypes) {
 	super.init({
-		cartId: {
+		outletId: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
 			primaryKey: true,
 			references: {
 				model: {
-					tableName: 'carts',
+					tableName: 'outlets',
 					schema: 'public'
 				},
 				key: 'id'
 			},
-			field: 'cart_id'
+			field: 'outlet_id'
 		},
 		productId: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
-			primaryKey: true,
 			references: {
 				model: {
 					tableName: 'products',
@@ -30,25 +29,12 @@ export default class CartItems extends Model {
 				key: 'id'
 			},
 			field: 'product_id'
-		},
-		quantity: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		total: {
-			type: DataTypes.DOUBLE,
-			allowNull: false
-		},
-		status: {
-			type: DataTypes.ENUM("NOT_ORDERED","PREPARING","DELIVERED"),
-			allowNull: false,
-			defaultValue: "NOT_ORDERED"
 		}
 	}, {
 		sequelize,
-		tableName: 'cart_items',
+		tableName: 'featured_outlet_products',
 		schema: 'public'
 	});
-	return CartItems;
+	return FeaturedOutletProducts;
 	}
 }

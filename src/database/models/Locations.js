@@ -2,7 +2,7 @@
 
 import { Model } from 'sequelize';
 
-export default class Images extends Model {
+export default class Locations extends Model {
 	static init(sequelize, DataTypes) {
 	super.init({
 		id: {
@@ -10,15 +10,15 @@ export default class Images extends Model {
 			allowNull: false,
 			primaryKey: true
 		},
-		source: {
+		city: {
 			type: DataTypes.CITEXT,
 			allowNull: false
 		}
 	}, {
 		sequelize,
-		tableName: 'images',
+		tableName: 'locations',
 		schema: 'public'
 	});
-	return Images;
+	return Locations;
 	}
 }

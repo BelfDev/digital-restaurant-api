@@ -2,43 +2,39 @@
 
 import { Model } from 'sequelize';
 
-export default class Wallets extends Model {
+export default class SessionOrders extends Model {
 	static init(sequelize, DataTypes) {
 	super.init({
-		id: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			primaryKey: true
-		},
-		userId: {
+		sessionId: {
 			type: DataTypes.UUIDV4,
 			allowNull: false,
+			primaryKey: true,
 			references: {
 				model: {
-					tableName: 'accounts',
-					schema: 'public'
-				},
-				key: 'user_id'
-			},
-			field: 'user_id'
-		},
-		mainPaymentMethodId: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			references: {
-				model: {
-					tableName: 'payment_methods',
+					tableName: 'sessions',
 					schema: 'public'
 				},
 				key: 'id'
 			},
-			field: 'main_payment_method_id'
+			field: 'session_id'
+		},
+		orderId: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			references: {
+				model: {
+					tableName: 'orders',
+					schema: 'public'
+				},
+				key: 'id'
+			},
+			field: 'order_id'
 		}
 	}, {
 		sequelize,
-		tableName: 'wallets',
+		tableName: 'session_orders',
 		schema: 'public'
 	});
-	return Wallets;
+	return SessionOrders;
 	}
 }

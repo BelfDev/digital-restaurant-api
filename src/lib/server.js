@@ -11,6 +11,9 @@ import {configureContainer} from './container'
 import {notFoundHandler} from '../middlewares/not-found'
 import {errorHandler} from '../middlewares/error-handler'
 import {registerContext} from '../middlewares/register-context'
+import session from "../middlewares/custom-session";
+import passport from 'koa-passport';
+import {initiateAuth} from "../auth/auth";
 
 /**
  * Utility script that creates and returns a new Koa application.
@@ -23,6 +26,9 @@ export async function createServer() {
 
     // Container is configured with our services and whatnot.
     const container = (app.container = configureContainer())
+
+    initiateAuth(app);
+
     app
         // Top middleware is the error handler.
         .use(errorHandler)

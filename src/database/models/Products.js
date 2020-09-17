@@ -11,7 +11,7 @@ export default class Products extends Model {
 			primaryKey: true
 		},
 		title: {
-			type: DataTypes.TEXT,
+			type: DataTypes.CITEXT,
 			allowNull: false
 		},
 		unitPrice: {
@@ -20,7 +20,7 @@ export default class Products extends Model {
 			field: 'unit_price'
 		},
 		description: {
-			type: DataTypes.TEXT,
+			type: DataTypes.CITEXT,
 			allowNull: true
 		},
 		preparationTime: {

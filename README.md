@@ -19,7 +19,7 @@ The purpose of this research project was to devise a cross-platform mobile appli
 
 ### Cuisine
 | Path | Method | Description |
-|----------------|-----------------|
+|----------------|-----------------|-----------------------------|
 |`/cuisines`| GET | Retrieves all available cuisine options |
 |`/cuisines/:id`| GET | Retrieves a cuisine option by the given integer identifier |
 <br>

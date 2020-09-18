@@ -39,11 +39,14 @@ This application uses a relational PostgreSQL database to store data. The instru
 2. **Open the Query Tool tab.**
      - *Opening the Query Tool tab*<br>
      ```Tools > Query Tool```
+     
      <p align="left">
         <img width="500" src=".github/query_tool.png">
      </p>
+     
      *If you cannot access the Query Tool option, try creating a dummy database through the GUI first.*
-3. **Execute the following commands using the Query Tool**
+     
+3. **Execute the following commands using the Query Tool.**
     ```CREATE DATABASE digital_restaurant
            WITH 
            OWNER = postgres
@@ -54,8 +57,9 @@ This application uses a relational PostgreSQL database to store data. The instru
            CONNECTION LIMIT = -1;
        
        COMMENT ON DATABASE digital_restaurant
-           IS 'Database to store information about the Digital Restaurant e-commerce app.';```
-4. **Click on the digital_restaurant database using pgAdmin4 GUI**
+           IS 'Database to store information about the Digital Restaurant e-commerce app.';
+   ```
+4. **Click on the `digital_restaurant` database using pgAdmin4 GUI.**
 5. **Open the Query Tool and populate the database.**
      - *Copying the SQL commands from the [project seeds folder](https://github.com/BelfDev/digital-restaurant-api/blob/feature/wrap-up/src/database/seeders/seed-commands.sql).*<br>
      - *Pasting SQL commands into pgAdmin4's Query Editor*<br>

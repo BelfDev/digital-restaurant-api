@@ -17,8 +17,8 @@ CREATE TABLE accounts (
 -- Populate accounts table
 INSERT INTO accounts (user_id, email, password, created_on, updated_on, last_login)
 VALUES
-    ('40e6215d-b5c6-4896-987c-f30f3678f608', 'pedrobelfort@gmail.com', crypt('ppass', gen_salt('bf')), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, null),
-    ('6ecd8c99-4036-403d-bf84-cf8400f67836', 'sophiasiampani@yahoo.com', crypt('spass', gen_salt('bf')), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, null)
+    ('40e6215d-b5c6-4896-987c-f30f3678f608', 'pedrob@hotmail.com', crypt('ppass', gen_salt('bf')), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, null),
+    ('6ecd8c99-4036-403d-bf84-cf8400f67836', 'marias@yahoo.com', crypt('spass', gen_salt('bf')), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, null)
 RETURNING *;
 
 -- Create session table

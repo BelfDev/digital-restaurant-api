@@ -1,4 +1,5 @@
 import {createController} from 'awilix-koa'
+import passport from 'koa-passport';
 
 /**
  * Cuisine API controller abstraction.
@@ -14,5 +15,8 @@ const api = cuisineService => ({
  */
 export default createController(api)
     .prefix('/cuisines')
-    .get('', 'findCuisines')
+    .get('', 'findCuisines', {
+        // Authentication example
+        // before: passport.authenticate('jwt', { session : false })
+    })
     .get('/:id', 'getCuisine');

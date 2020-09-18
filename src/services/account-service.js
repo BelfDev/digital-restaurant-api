@@ -42,6 +42,7 @@ export default class AccountService {
 
     async logout(ctx) {
         this.logger.debug('Logging out user', ctx.state.user);
+        ctx.body = {};
         return ctx.logout();
     }
 
@@ -52,7 +53,7 @@ export default class AccountService {
                 this.logger.debug('Failed to create new user account.', err.message);
                 ctx.throw(401, err.message)
             } else {
-                const {userId, email, createdOn} = user.dataValues;
+                const {email} = user.dataValues;
                 this.logger.debug('Created new user account: ', email);
                 return this.login(ctx);
             }

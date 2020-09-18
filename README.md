@@ -69,6 +69,7 @@ The purpose of this research project was to devise a cross-platform mobile appli
 |`/account/signup`| POST | Creates and authenticates a new user account with the given email and password (passed as json in the body). |
 |`/account/logout`| GET | Logs the user out. |
 <br>
+
 **Note**: The app uses the [JWT Token authentication](https://jwt.io/introduction/) strategy.
 
 ## Running the project

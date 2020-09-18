@@ -23,13 +23,6 @@ The purpose of this research project was to devise a cross-platform mobile appli
 |`/cuisines`| GET | Retrieves all cuisine options available.|
 |`/cuisines/:id`| GET | Retrieves a cuisine option by the given integer identifier. |
 
-### Session
-| Path | Method | Description |
-|----------------|-----------------|-----------------------------|
-|`/session`| GET | Retrieves all sessions available. *Open for demonstration purposes.*|
-|`/session`| POST | Creates a new session. |
-|`/session/:id`| GET | Retrieves a session by the given integer identifier. |
-
 ### Outlet
 | Path | Method | Description |
 |----------------|-----------------|-----------------------------|
@@ -38,6 +31,13 @@ The purpose of this research project was to devise a cross-platform mobile appli
 |`/outlets/:id`| GET | Retrieves an outlet option by the given integer identifier. |
 |`/outlets/:id/products`| GET | Retrieves all **products** offered by the outlet of the given integer identifier. |
 |`/outlets/:id/products/featured`| GET | Retrieves all **featured products** offered by the outlet of the given integer identifier. |
+
+### Session
+| Path | Method | Description |
+|----------------|-----------------|-----------------------------|
+|`/session`| GET | Retrieves all sessions available. *Open for demonstration purposes.*|
+|`/session`| POST | Creates a new session. |
+|`/session/:id`| GET | Retrieves a session by the given integer identifier. |
 
 ### Cart
 | Path | Method | Description |
@@ -61,6 +61,14 @@ The purpose of this research project was to devise a cross-platform mobile appli
 |`/payments`| POST | Creates a new payment. Payments are associated with the **session-id** passed as a Header property. |
 |`/payments`| GET |  Retrieves all payments. *Open for demonstration purposes.* |
 |`/payments/:id`| GET | Retrieves a payment associated with the given integer identifier. |
+
+### Account
+| Path | Method | Description |
+|----------------|-----------------|-----------------------------|
+|`/account/login`| POST | Authenticates a user account based on the given email and password (passed as json in the body).|
+|`/account/signup`| POST | Creates and authenticates a new user account with the given email and password (passed as json in the body). |
+|`/account/logout`| GET | Logs the user out. |
+**Note**: The app uses the [JWT Token authentication](https://jwt.io/introduction/) strategy.
 
 ## Running the project
 

@@ -15,6 +15,18 @@
 
 The purpose of this research project was to devise a cross-platform mobile application that reimagined the eating out experience in view of the disruptions caused by the COVID-19 pandemic. The resulting product sought to maximise convenience and, at the same time, facilitate compliance with safety measures imposed by governments around the world. By adopting "Le Serveur", users were able to explore restaurant options, check-in at selected outlets, pick their favourite dishes from food menus, place orders, and express check-out at their preferred time.
 
+## API Reference
+
+### Cuisine
+| Path | Method | Description |
+|----------------|-----------------|
+|`/cuisines`| GET | Retrieves all available cuisine options |
+|`/cuisines/:id`| GET | Retrieves a cuisine option by the given integer identifier |
+<br>
+
+### Cuisine
+
+
 ## Running the project
 
 Read the instructions below carefully to run the project on your local machine. Please keep in mind that the "Le Serveur" system also encompasses a [frontend application](https://github.com/BelfDev/digital-restaurant-app), which must be running locally for the product to work as expected.

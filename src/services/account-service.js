@@ -23,14 +23,27 @@ export default class AccountService {
             }
 
             const userData = user.dataValues;
+            this.logger.debug('Logging user');
             return ctx.login(user)
                 .then(() => {
                     const {userId, email, createdOn} = userData;
                     const body = {userId, email, createdOn}
                     const token = jwt.sign({user: body}, 'top_secret');
-                    ctx.body = {token};
+                    ctx.body = {
+                        result: {
+                            userId,
+                            email,
+                            token
+                        }
+                    };
                 });
         })(ctx)
+    }
+
+    async logout(ctx) {
+        this.logger.debug('Logging out user', ctx.state.user);
+        ctx.body = {};
+        return ctx.logout();
     }
 
     async create(ctx) {
@@ -40,15 +53,9 @@ export default class AccountService {
                 this.logger.debug('Failed to create new user account.', err.message);
                 ctx.throw(401, err.message)
             } else {
-                const {userId, email, createdOn} = user.dataValues;
+                const {email} = user.dataValues;
                 this.logger.debug('Created new user account: ', email);
-                ctx.body = {
-                    user: {
-                        userId,
-                        email,
-                        createdOn
-                    }
-                }
+                return this.login(ctx);
             }
         })(ctx)
     }

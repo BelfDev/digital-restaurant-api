@@ -3,10 +3,11 @@ import bodyParser from "koa-bodyparser";
 
 /**
  * Account API controller abstraction.
- * This file contains functions that map HTTP calls to the AccountService.
+ * This file contains functions that map HTTP calls to AccountService methods.
  */
 const api = accountService => ({
     loginAccount: async ctx => ctx.ok(await accountService.login(ctx)),
+    logoutAccount: async ctx => ctx.ok(await accountService.logout(ctx)),
     createAccount: async ctx => ctx.created(await accountService.create(ctx)),
 });
 
@@ -16,10 +17,9 @@ const api = accountService => ({
 export default createController(api)
     .prefix('/account')
     .post('/login', 'loginAccount', {
-        // Maps `POST /todos` to the `createTodo` function on the returned object from `API`
         before: [bodyParser()] // Runs the bodyParser just for this endpoint
     })
+    .get('/logout', 'logoutAccount')
     .post('/signup', 'createAccount', {
-        // Maps `POST /todos` to the `createTodo` function on the returned object from `API`
         before: [bodyParser()] // Runs the bodyParser just for this endpoint
     });

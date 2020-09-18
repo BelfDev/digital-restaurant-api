@@ -2,8 +2,8 @@ import {createController} from 'awilix-koa'
 import bodyParser from "koa-bodyparser";
 
 /**
- * Payment API controller abstraction.
- * This file contains functions that map HTTP calls to the OrderService.
+ * Payment API controller.
+ * This file contains functions that map HTTP calls to PaymentService methods.
  */
 const api = paymentService => ({
     findPayments: async ctx => ctx.ok(await paymentService.find(ctx.query)),

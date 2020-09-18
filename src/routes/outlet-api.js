@@ -1,8 +1,8 @@
 import {createController} from 'awilix-koa'
 
 /**
- * Outlet API controller abstraction.
- * This file contains functions that map HTTP calls to the OutletService.
+ * Outlet API controller.
+ * This file contains functions which map HTTP calls to OutletService methods.
  */
 const api = outletService => ({
     findOutlets: async ctx => ctx.ok(await outletService.find(ctx.query)),

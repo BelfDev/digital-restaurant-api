@@ -23,6 +23,13 @@ The purpose of this research project was to devise a cross-platform mobile appli
 |`/cuisines`| GET | Retrieves all cuisine options available.|
 |`/cuisines/:id`| GET | Retrieves a cuisine option by the given integer identifier. |
 
+### Session
+| Path | Method | Description |
+|----------------|-----------------|-----------------------------|
+|`/session`| GET | Retrieves all sessions available. *Open for demonstration purposes.*|
+|`/session`| POST | Creates a new session. |
+|`/session/:id`| GET | Retrieves a session by the given integer identifier. |
+
 ### Outlet
 | Path | Method | Description |
 |----------------|-----------------|-----------------------------|

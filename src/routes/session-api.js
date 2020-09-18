@@ -2,8 +2,8 @@ import bodyParser from 'koa-bodyparser'
 import {createController} from 'awilix-koa'
 
 /**
- * Session API controller abstraction.
- * This file contains functions that map HTTP calls to the SessionService.
+ * Session API controller.
+ * This file contains functions that map HTTP calls to SessionService methods.
  */
 const api = sessionService => ({
     findSessions: async ctx => ctx.ok(await sessionService.find(ctx.query)),

@@ -39,7 +39,7 @@ The purpose of this research project was to devise a cross-platform mobile appli
 |`/carts/:id`| GET | Retrieves an carts option by the given integer identifier. This endpoint also expects a **session-id passed as a Header property**.|
 |`/carts/:id`| POST | Updates the cart associated with the given integer identifier. |
 |`/carts/:id/items`| POST | Creates or updates cart items from the cart with the given integer cart identifier. |
-|`/carts/:id/items`| DELETE | Deletes cart items associated with the given integer cart identifier |
+|`/carts/:id/items`| DELETE | Deletes cart items associated with the given integer cart identifier. |
 
 ### Order
 | Path | Method | Description |
@@ -47,6 +47,13 @@ The purpose of this research project was to devise a cross-platform mobile appli
 |`/orders/:id`| GET | Retrieves an order option by the given integer identifier. |
 |`/orders/carts`| POST | Creates a new order with the given carts. |
 |`/orders/:id/carts`| POST | Adds a cart to an existing order with the given integer order identifier. |
+
+### Payment
+| Path | Method | Description |
+|----------------|-----------------|-----------------------------|
+|`/payments`| POST | Creates a new payment. Payments are associated with the **session-id** passed as a Header property. |
+|`/payments`| GET |  Retrieves all payments. *Open for demonstration purposes.* |
+|`/payments/:id`| GET | Retrieves a payment associated with the given integer identifier. |
 
 ## Running the project
 

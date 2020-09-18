@@ -22,10 +22,15 @@ The purpose of this research project was to devise a cross-platform mobile appli
 |----------------|-----------------|-----------------------------|
 |`/cuisines`| GET | Retrieves all available cuisine options |
 |`/cuisines/:id`| GET | Retrieves a cuisine option by the given integer identifier |
-<br>
 
-### Cuisine
-
+### Outlet
+| Path | Method | Description |
+|----------------|-----------------|-----------------------------|
+|`/outlets`| GET | Retrieves all available outlet options. A city region is typically passed as query parameter. |
+|`/cuisines/featured`| GET | Retrieves all available **featured** outlet options. A city region is typically passed as query parameter. |
+|`/outlets/:id`| GET | Retrieves an outlet option by the given integer identifier |
+|`/outlets/:id/products`| GET | Retrieves all **products** offered by the outlet of the given integer identifier. |
+|`/outlets/:id/products/featured`| GET | Retrieves all **featured products** offered by the outlet of the given integer identifier. |
 
 ## Running the project
 

@@ -1,9 +1,9 @@
 import {createController} from 'awilix-koa'
-import passport from 'koa-passport';
+// import passport from 'koa-passport';
 
 /**
- * Cuisine API controller abstraction.
- * This file contains functions that map HTTP calls to the CuisineService.
+ * Cuisine API controller.
+ * This file contains functions which map HTTP calls to CuisineService methods.
  */
 const api = cuisineService => ({
     findCuisines: async ctx => ctx.ok(await cuisineService.find(ctx.query)),

@@ -47,7 +47,8 @@ This application uses a relational PostgreSQL database to store data. The instru
      *If you cannot access the Query Tool option, try creating a dummy database through the GUI first.*
      
 3. **Execute the following commands using the Query Tool.**
-    ```CREATE DATABASE digital_restaurant
+    ```sql
+   CREATE DATABASE digital_restaurant
            WITH 
            OWNER = postgres
            ENCODING = 'UTF8'

@@ -2,8 +2,8 @@ import {createController} from 'awilix-koa'
 import bodyParser from "koa-bodyparser";
 
 /**
- * Orders API controller abstraction.
- * This file contains functions that map HTTP calls to the OrderService.
+ * Orders API controller.
+ * This file contains functions that map HTTP calls to OrderService methods.
  */
 const api = orderService => ({
     // findOrders: async ctx => ctx.ok(await orderService.find(ctx.query)),

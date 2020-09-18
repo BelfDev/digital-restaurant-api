@@ -20,17 +20,33 @@ The purpose of this research project was to devise a cross-platform mobile appli
 ### Cuisine
 | Path | Method | Description |
 |----------------|-----------------|-----------------------------|
-|`/cuisines`| GET | Retrieves all available cuisine options |
-|`/cuisines/:id`| GET | Retrieves a cuisine option by the given integer identifier |
+|`/cuisines`| GET | Retrieves all cuisine options available.|
+|`/cuisines/:id`| GET | Retrieves a cuisine option by the given integer identifier. |
 
 ### Outlet
 | Path | Method | Description |
 |----------------|-----------------|-----------------------------|
-|`/outlets`| GET | Retrieves all available outlet options. A city region is typically passed as query parameter. |
-|`/cuisines/featured`| GET | Retrieves all available **featured** outlet options. A city region is typically passed as query parameter. |
-|`/outlets/:id`| GET | Retrieves an outlet option by the given integer identifier |
+|`/outlets`| GET | Retrieves all outlet options available. A city region is typically passed as query parameter. |
+|`/cuisines/featured`| GET | Retrieves all **featured** outlet options available. A city region is typically passed as query parameter. |
+|`/outlets/:id`| GET | Retrieves an outlet option by the given integer identifier. |
 |`/outlets/:id/products`| GET | Retrieves all **products** offered by the outlet of the given integer identifier. |
 |`/outlets/:id/products/featured`| GET | Retrieves all **featured products** offered by the outlet of the given integer identifier. |
+
+### Cart
+| Path | Method | Description |
+|----------------|-----------------|-----------------------------|
+|`/carts`| POST | Creates a new cart. |
+|`/carts/:id`| GET | Retrieves an carts option by the given integer identifier. This endpoint also expects a **session-id passed as a Header property**.|
+|`/carts/:id`| POST | Updates the cart associated with the given integer identifier. |
+|`/carts/:id/items`| POST | Creates or updates cart items from the cart with the given integer cart identifier. |
+|`/carts/:id/items`| DELETE | Deletes cart items associated with the given integer cart identifier |
+
+### Order
+| Path | Method | Description |
+|----------------|-----------------|-----------------------------|
+|`/orders/:id`| GET | Retrieves an order option by the given integer identifier. |
+|`/orders/carts`| POST | Creates a new order with the given carts. |
+|`/orders/:id/carts`| POST | Adds a cart to an existing order with the given integer order identifier. |
 
 ## Running the project
 

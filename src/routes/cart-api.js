@@ -2,8 +2,8 @@ import {createController} from 'awilix-koa'
 import bodyParser from "koa-bodyparser";
 
 /**
- * Cuisine API controller abstraction.
- * This file contains functions that map HTTP calls to the CartService.
+ * Cuisine API controller.
+ * This file contains functions that map HTTP calls to CartService methods.
  */
 const api = cartService => ({
     // findCarts: async ctx => ctx.ok(await cartService.find(ctx)),
@@ -21,15 +21,12 @@ export default createController(api)
     // .get('', 'findCarts')
     .get('/:id', 'getCart')
     .post('', 'createOrUpdateCart', {
-        // Maps `POST /todos` to the `createTodo` function on the returned object from `API`
-        before: [bodyParser()] // Runs the bodyParser just for this endpoint
+        before: [bodyParser()]
     })
     .post('/:id', 'createOrUpdateCart', {
-        // Maps `POST /todos` to the `createTodo` function on the returned object from `API`
-        before: [bodyParser()] // Runs the bodyParser just for this endpoint
+        before: [bodyParser()]
     })
     .post('/:id/items', 'createOrUpdateCartItem', {
-        // Maps `POST /todos` to the `createTodo` function on the returned object from `API`
-        before: [bodyParser()] // Runs the bodyParser just for this endpoint
+        before: [bodyParser()]
     })
     .delete('/:id/items', 'deleteCartItems');

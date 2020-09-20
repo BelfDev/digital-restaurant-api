@@ -1,7 +1,6 @@
 /**
  * Data access layer for the Outlet model.
  * Gets the logger and database injected.
- * Methods: FIND, GET
  */
 const createOutletStore = (logger, db) => {
     const Outlet = db.Outlets;

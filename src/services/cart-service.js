@@ -1,12 +1,11 @@
 import {BadRequest, NotFound} from 'fejl'
 
-// Prefab assert function.
 const assertId = BadRequest.makeAssert('No id given')
 const assertSessionId = BadRequest.makeAssert('No sessionId given')
 
 /**
- * Cuisine service layer.
- * Gets a cuisine store injected.
+ * Cart service layer.
+ * Gets a cart store injected.
  */
 export default class CartService {
     constructor(cartStore) {

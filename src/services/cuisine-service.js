@@ -13,7 +13,7 @@ export default class CuisineService {
     }
 
     /**
-     * Fetch all cuisines according to the given parameter.
+     * Fetches all cuisines according to the given parameter.
      * @param params optional parameters to filter the result.
      * @returns {Promise<{result: Cuisines[]}>}
      */
@@ -21,7 +21,7 @@ export default class CuisineService {
         const result = await this.cuisineStore.find();
         return {result};
     }
-ø
+
     /**
      * Searches for a specific cuisine by the given identifier.
      * @param id integer identifier

@@ -11,8 +11,6 @@ import {configureContainer} from './container'
 import {notFoundHandler} from '../middlewares/not-found'
 import {errorHandler} from '../middlewares/error-handler'
 import {registerContext} from '../middlewares/register-context'
-import session from "../middlewares/custom-session";
-import passport from 'koa-passport';
 import {initiateAuth} from "../auth/auth";
 
 /**
@@ -57,7 +55,7 @@ export async function createServer() {
         // You should tear down database connections, TCP connections, etc
         // here to make sure Jest's watch-mode some process management
         // tool does not release resources.
-        logger.debug('Server closing, bye!')
+        logger.debug('Server closing!')
     })
 
     logger.debug('Server created, ready to listen', {scope: 'startup'})

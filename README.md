@@ -152,6 +152,7 @@ Once you have installed all the pre-requisites, please follow the steps below to
      <p align="left">
         <img width="500" src=".github/running_backend.png">
      </p>
+4. *Don't forget to configure the env.yaml file! If you are executing the code from the submission folder, env.yaml has already been pre-configure for you.*
      
 Now you can either use a tool such as [Postman](https://www.postman.com/) to make API requests or just use the [frontend mobile app](https://github.com/BelfDev/digital-restaurant-app) "Le Serveur" for the full experience.
      

@@ -1,7 +1,6 @@
 /**
  * Data access layer for the Cart model.
  * Gets the logger and database injected.
- * Methods: FIND, GET.
  */
 const createCartStore = (logger, db) => {
     const Cart = db.Carts;

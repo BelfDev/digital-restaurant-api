@@ -1,3 +1,7 @@
+/**
+ * Defines relationships between Sequelize models
+ * @param sequelize
+ */
 function withAssociations(sequelize) {
     const {
         Cuisines, Images, Outlets,

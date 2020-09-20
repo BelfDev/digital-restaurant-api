@@ -1,7 +1,6 @@
 /**
  * Data access layer for the Cuisine model.
  * Gets the logger and database injected.
- * Methods: FIND, GET.
  */
 const createCuisineStore = (logger, db) => {
     const Cuisine = db.Cuisines;

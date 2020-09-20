@@ -1,6 +1,5 @@
 import {BadRequest, NotFound} from 'fejl'
 
-// Prefab assert function.
 const assertId = BadRequest.makeAssert('No id given')
 
 /**
@@ -21,7 +20,9 @@ export default class SessionService {
         const result = await this.sessionStore.find();
         return {result};
     }
+
     ø
+
     /**
      * Searches for a specific session by the given identifier.
      * @param id integer identifier

@@ -1,12 +1,8 @@
-import {BadRequest} from 'fejl';
 import jwt from 'jsonwebtoken';
 
-// Prefab assert function.
-const assertId = BadRequest.makeAssert('No id given')
-
 /**
- * Cuisine service layer.
- * Gets a cuisine store injected.
+ * Account service layer.
+ * Gets the passport and logger injected.
  */
 export default class AccountService {
     constructor(passport, logger) {

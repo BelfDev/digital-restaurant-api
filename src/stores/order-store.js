@@ -1,7 +1,6 @@
 /**
  * Data access layer for the Order model.
  * Gets the logger and database injected.
- * Methods: FIND, GET.
  */
 const createOrderStore = (logger, db) => {
     const Order = db.Orders;
@@ -79,7 +78,7 @@ const createOrderStore = (logger, db) => {
          */
         async updateOrderStatus(id, status) {
             logger.debug(`Updating order`);
-            const order = await  Order.findByPk(id);
+            const order = await Order.findByPk(id);
             order.status = status;
             const result = await order.save();
             if (result) {

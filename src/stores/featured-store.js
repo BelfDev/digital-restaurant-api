@@ -1,16 +1,15 @@
 /**
  * Data access layer for the Featured model.
  * Gets the logger and database injected.
- * Methods: FIND
  */
 const createFeaturedStore = (logger, db) => {
     const FeaturedOutlet = db.FeaturedOutlets;
 
     const buildLocationCondition = (city) => city ? {
-            where: {
-                city: city
-            }
-        } : {};
+        where: {
+            city: city
+        }
+    } : {};
 
     const getOptions = (params) => {
         let locationCondition;

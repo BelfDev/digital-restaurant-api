@@ -1,9 +1,7 @@
 import {BadRequest, NotFound} from 'fejl'
 
-// Prefab assert function.
 const assertId = BadRequest.makeAssert('No id given')
 const assertSessionId = BadRequest.makeAssert('No sessionId given')
-const assertCartId = BadRequest.makeAssert('No cartId given')
 
 /**
  * Payment service layer.

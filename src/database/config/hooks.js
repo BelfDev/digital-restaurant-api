@@ -1,4 +1,3 @@
-
 function withHooks(sequelize) {
     const {Accounts, Products, CartItems, Carts, OrderCarts, Orders, Payments} = sequelize.models;
 

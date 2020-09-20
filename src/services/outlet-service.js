@@ -1,6 +1,5 @@
 import {BadRequest, NotFound} from 'fejl'
 
-// Prefab assert function.
 const assertId = BadRequest.makeAssert('No id given')
 
 /**
@@ -56,7 +55,7 @@ export default class OutletService {
         const result = await this.outletStore.findProducts(id).then(
             NotFound.makeAssert(`Outlet with id "${id}" not found`)
         );
-        return {result : result['products']};
+        return {result: result['products']};
     }
 
     /**
@@ -72,7 +71,7 @@ export default class OutletService {
         const result = await this.outletStore.findProducts(id, params).then(
             NotFound.makeAssert(`Outlet with id "${id}" not found`)
         );
-        return {result : result['featuredProducts']};
+        return {result: result['featuredProducts']};
     }
 
 }
